@@ -137,11 +137,18 @@ int main() {
 		double pof = static_cast<RealDevice*>(arrayIH->cell[0][0])->pmaxConductance/static_cast<RealDevice*>(arrayIH->cell[0][0])->pminConductance;
 		double nof = static_cast<RealDevice*>(arrayIH->cell[0][0])->nmaxConductance/static_cast<RealDevice*>(arrayIH->cell[0][0])->nminConductance;
 	        double LA = param->alpha1;
-	        int newUpdateRate = param->newUpdateRate;
+	        int reverseperiod = param->newUpdateRate;
+		int reverseupdate = param->ReverseUpdate;
+		int refreshperiod = param ->FullRefresh;
+		int refreshrate = param -> RefreshRate;
+		int Gth1 = param -> Gth1;
+	  	int Gth2 = param -> Gth2;
+		double revlr = LA / param -> ratio 
 
 
 														               
-		printf("opt: %s NL_LTP_Gp:%.1f NL_LTD_Gp:%.1f NL_LTP_Gn:%.1f NL_LTD_Gn:%.1f CSpP: %d CSpD: %d CSnP: %d CSnD: %d OnOffGp: %.1f OnOffGn: %.1f LA: %.2f RefreshRate: %d\n", param->optimization_type, NL_LTP_Gp, NL_LTD_Gp, NL_LTP_Gn, NL_LTD_Gn, kp, kd, knp, knd, pof, nof, LA, newUpdateRate);
+		printf("opt: %s NL_LTP_Gp:%.1f NL_LTD_Gp:%.1f NL_LTP_Gn:%.1f NL_LTD_Gn:%.1f CSpP: %d CSpD: %d CSnP: %d CSnD: %d normal LR %.2f reverse LR %.2f\n", param->optimization_type, NL_LTP_Gp, NL_LTD_Gp, NL_LTP_Gn, NL_LTD_Gn, kp, kd, knp, knd, LA, revlr);
+		printf("reverseupdate Y/N: %d refresh Y/N: %d reverseperiod: %d refreshperiod: %d Gth1: %.1f Gth2: %.1f\n", reverseupdate, fullrefresh, reverseperiod, refreshperiod, Gth1, Gth2);
 		bool write_or_not=1;
 		fstream read;
 		read.open("g_200203.csv",fstream::app);                                                         
