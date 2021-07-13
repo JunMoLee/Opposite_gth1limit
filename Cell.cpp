@@ -352,14 +352,14 @@ RealDevice::RealDevice(int x, int y, double p, double n) {
 		cp=1;
 	const double
 		cn=-1;
-	NL_LTP_Gp=1;
-	NL_LTD_Gp=1;
+	NL_LTP_Gp=param->param_gp;
+	NL_LTD_Gp=param->param_gn;
 	const double
 		np=1;
 	const double
 		nd=-1;
-	NL_LTP_Gn=1;
-	NL_LTD_Gn=1;
+	NL_LTP_Gn=param->param_gp;
+	NL_LTD_Gn=param->param_gn;
 
 	sigmaDtoD = 0;	// Sigma of device-to-device weight update vairation in gaussian distribution
 	gaussian_dist2 = new std::normal_distribution<double>(0, sigmaDtoD);	// Set up mean and stddev for device-to-device weight update vairation
