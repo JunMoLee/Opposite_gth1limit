@@ -42,7 +42,7 @@
 #include "formula.h"
 #include "Array.h"
 #include "Cell.h"
-#include "Param.cpp"
+#include "Param.h"
 
 extern Param *param;
 
