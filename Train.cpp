@@ -561,7 +561,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
        
                             else {	// SRAM and digital eNVM
                                 weight1[jj][k] = weight1[jj][k] + deltaWeight1[jj][k];
-								arrayIH->WriteCell(jj, k, deltaWeight1[jj][k], weight1[jj][k], param->maxWeight, param->minWeight, true);
+								arrayIH->WriteCell(jj, k, deltaWeight1[jj][k], weight1[jj][k], param->maxWeight, param->minWeight, iteration);
 								weightChangeBatch = weightChangeBatch || arrayIH->weightChange[jj][k];
 							}
 							
