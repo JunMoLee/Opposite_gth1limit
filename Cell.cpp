@@ -266,13 +266,13 @@ RealDevice::RealDevice(int x, int y, double p, double n) {
 	       tp=12.5;
 	maxConductance= nmaxConductance; // in case of unwanted situations
 	minConductance=0;
-	pminConductance = 3.0769e-9;
-	pmaxConductance = 3.0769e-9 * tp;		// Maximum cell conductance (S)
+	pminConductance = 0;
+	pmaxConductance = 10;		// Maximum cell conductance (S)
 	const double
 		tn=12.5;
-	nminConductance = 3.0769e-9; 
-	nmaxConductance = 3.0769e-9 * tn;
-	refConductance = 3.0769e-9 * tn;
+	nminConductance = 0; 
+	nmaxConductance = 10;
+	refConductance = 0;
 	
 	// Minimum cell conductance (S)
 	//maxConductance = 1/4.71e6;
@@ -291,17 +291,17 @@ RealDevice::RealDevice(int x, int y, double p, double n) {
 	writePulseWidthLTD = 300e-6;	// Write pulse width (s) for LTD or weight decrease
 	writeEnergy = 0;	// Dynamic variable for calculation of write energy (J)
        const double
-	kc=16;
+	kc=100;
 	const double
-	       	kp=97;
+	       	kp=100;
 	const double
-		kd=97;
-	maxNumLevelpLTP = kc;	// Maximum number of conductance states during LTP or weight increase
-	maxNumLevelpLTD = kc;	// Maximum number of conductance states during LTD or weight decrease
+		kd=100;
+	maxNumLevelpLTP = 100;	// Maximum number of conductance states during LTP or weight increase
+	maxNumLevelpLTD = 100;	// Maximum number of conductance states during LTD or weight decrease
 	const double
-		knp=97;
+		knp=100;
 	const double
-	        knd=97;
+	        knd=100;
 	maxNumLevelnLTP = kc;
 	maxNumLevelnLTD = kc;
         maxNumLevelLTP= (maxNumLevelpLTP >  maxNumLevelnLTP)? maxNumLevelpLTP : maxNumLevelnLTP;
