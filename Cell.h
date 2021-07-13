@@ -42,6 +42,9 @@
 #include <random>
 #include <vector>
 
+extern Param *param;
+
+
 class Cell {
 public:
 	int x, y;	// Cell location: x (column) and y (row) start from index 0
