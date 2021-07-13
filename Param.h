@@ -63,6 +63,7 @@ public:
     char* optimization_type;
 	double Gth1;
 	double Gth2;
+	double ratio;
 
 	/* Hardware parameters */
 	bool useHardwareInTrainingFF;   // Use hardware in the feed forward part of training or not (true: realistic hardware, false: ideal software)
