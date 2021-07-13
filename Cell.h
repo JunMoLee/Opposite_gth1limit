@@ -41,6 +41,7 @@
 
 #include <random>
 #include <vector>
+#include "Param.h"
 
 extern Param *param;
 
