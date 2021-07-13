@@ -455,7 +455,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 				
 			else if (conductanceNewGp > param->Gth2){
 				
-			conductanceNewGn = conductanceGn;
+			conductanceNewGn = 0;
 			
 			}
 					
@@ -515,7 +515,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 			}
 			
 			else if(conductanceNewGn > param->Gth2){
-				conductanceNewGp = conductanceGp;
+				conductanceNewGp = 0;
 		
 			}
 			
