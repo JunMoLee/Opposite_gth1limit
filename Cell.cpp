@@ -463,7 +463,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 		else{
 		
 		GpGnCell = false;
-		deltaWeightNormalized = totalcondrange/ncondrange*deltaWeightNormalized/(maxWeight-minWeight);
+		deltaWeightNormalized = totalcondrange/ncondrange*deltaWeightNormalized/(maxWeight-minWeight)/param->ratio;
 		deltaWeightNormalized = truncate(deltaWeightNormalized, maxNumLevelnLTD);
 		numPulse = deltaWeightNormalized * maxNumLevelnLTD;
 		if (numPulse > maxNumLevelnLTD) {
@@ -522,7 +522,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 			else{
 				
 				GpGnCell = true;
-				deltaWeightNormalized = -totalcondrange/pcondrange*deltaWeightNormalized/(maxWeight-minWeight);
+				deltaWeightNormalized = -totalcondrange/pcondrange*deltaWeightNormalized/(maxWeight-minWeight)/param->ratio;
 				deltaWeightNormalized = truncate(deltaWeightNormalized, maxNumLevelpLTD);
 				numPulse = deltaWeightNormalized * maxNumLevelpLTD;
 				if (numPulse > maxNumLevelpLTD) {
