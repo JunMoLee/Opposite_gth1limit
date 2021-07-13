@@ -98,7 +98,7 @@ a=0;
 switch(a){
 case 0:
 param_gp=1;
-param_gn=1;
+param_gn=-9;
 break;
 case 1:
 param_gp=1;
