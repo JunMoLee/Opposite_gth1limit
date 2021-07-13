@@ -1071,13 +1071,13 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				for (int j = 0; j < param->nHide; j++) {
 					for (int k = 0; k < param->nInput; k++) {
 						//std::cout << weight1[j][k] << std::endl;
-						arrayIH->WriteCell(j, k, weight1[j][k], weight1[j][k], param->maxWeight, param->minWeight,false);
+						arrayIH->WriteCell(j, k, weight1[j][k], weight1[j][k], param->maxWeight, param->minWeight,iteration);
 						//std::cout << arrayIH->ConductanceToWeight(j, k, param->maxWeight, param->minWeight) << std::endl;
 					}
 				}
 				for (int j = 0; j < param->nOutput; j++) {
 					for (int k = 0; k < param->nHide; k++) {
-						arrayHO->WriteCell(j, k, weight2[j][k], weight2[j][k], param->maxWeight, param->minWeight,false);
+						arrayHO->WriteCell(j, k, weight2[j][k], weight2[j][k], param->maxWeight, param->minWeight,iteration);
 					}
 				}
 				
