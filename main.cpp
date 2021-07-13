@@ -140,10 +140,10 @@ int main() {
 	        int reverseperiod = param->newUpdateRate;
 		int reverseupdate = param->ReverseUpdate;
 		int fullrefresh = param ->FullRefresh;
-		int refreshrate = param -> RefreshRate;
+		int refreshperiod = param -> RefreshRate;
 		int Gth1 = param -> Gth1;
 	  	int Gth2 = param -> Gth2;
-		double revlr = LA / param -> ratio 
+		double revlr = LA / param -> ratio ;
 
 
 														               
