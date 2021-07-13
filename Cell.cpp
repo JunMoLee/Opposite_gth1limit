@@ -44,6 +44,7 @@
 #include "Cell.h"
 #include "Param.cpp"
 
+extern Param *param;
 
 /* General eNVM */
 void AnalogNVM::WriteEnergyCalculation(double wireCapCol) {
@@ -442,7 +443,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 		
 		
 		
-		if(param->ReverseUpdate && iteration % newUpdateRate == newUpdateRate-1){
+		if(param->ReverseUpdate && iteration % param->newUpdateRate == param->newUpdateRate-1){
 		if(conductanceNewGp < param->Gth1)
 		{
 		GpGnCell = false;
@@ -454,7 +455,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 				
 			else if (conductanceNewGp > param->Gth2){
 				
-			conductanceNewGn = conductanceGn
+			conductanceNewGn = conductanceGn;
 			
 			}
 					
@@ -503,9 +504,9 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 
 	} else {	// LTD weight update
 		
-		if(param->ReverseUpdate && iteration % newUpdateRate == newUpdateRate-1){
+		if(param->ReverseUpdate && iteration % param->newUpdateRate == param->newUpdateRate-1){
 			if(conductanceNewGn < param->Gth1){
-						GpGnCell = True;
+						GpGnCell = true;
 						deltaWeightNormalized = totalcondrange/pcondrange*deltaWeightNormalized/(maxWeight-minWeight);
 						deltaWeightNormalized = truncate(deltaWeightNormalized, maxNumLevelpLTD);
 						numPulse = 0;
@@ -514,7 +515,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 			}
 			
 			else if(conductanceNewGn > param->Gth2){
-				conductanceNewGp = conductanceGp
+				conductanceNewGp = conductanceGp;
 		
 			}
 			
