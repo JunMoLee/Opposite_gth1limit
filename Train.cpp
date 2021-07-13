@@ -1056,7 +1056,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 			/// conductance saturation management: Full-Reset /// 
 			if(param -> FullRefresh){
 				
-			if (batchSize % param->RefreshRate == (param->RefreshRate-1)) { //ERASE
+			if (iteration % param->RefreshRate == (param->RefreshRate-1)) { //ERASE
 				for (int j = 0; j < param->nHide; j++) {
 					for (int k = 0; k < param->nInput; k++) {
 						arrayIH->EraseCell(j,k);
