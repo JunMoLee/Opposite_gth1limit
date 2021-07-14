@@ -151,9 +151,11 @@ int main() {
 		printf("reverseupdate Y/N: %d refresh Y/N: %d reverseperiod: %d refreshperiod: %d Gth1: %.1f Gth2: %.1f\n", reverseupdate, fullrefresh, reverseperiod, refreshperiod, Gth1, Gth2);
 		bool write_or_not=1;
 		fstream read;
-		read.open("g_200203.csv",fstream::app);                                                         
+		char str[1024];
+		sprintf(str, "NL_%d%d_Gth_%.2f_%.2f" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, Gth2);
+		read.open(str,fstream::app);                                                         
 																	
-		for (int i=1; i<=20; i++) {
+		for (int i=1; i<=100; i++) {
 		cout << "Training Epoch : " << i << endl; 
 		Train(param->numTrainImagesPerEpoch, param->interNumEpochs,param->optimization_type);
 		if (!param->useHardwareInTraining && param->useHardwareInTestingFF) { WeightToConductance(); }
