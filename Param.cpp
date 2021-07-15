@@ -99,7 +99,7 @@ const int
 a=0;
 	
 const int
-gths = 0;
+gths=0;
 	
 switch(a){
 case 0:
