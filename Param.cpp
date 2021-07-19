@@ -130,10 +130,10 @@ break; }
 int Gthlist [55][2];
 int idx = 0;
 
- for(int i=0;  i<=9 ; i++){
- 	for(int j=i+1; j<=10; j++ ){
-		Gthlist[idx][0] = i;
-		Gthlist[idx][1] = j;
+ for(int i=10;  i>=0 ; i--){
+ 	for(int j=0; j<=i-1; j++ ){
+		Gthlist[idx][0] = j;
+		Gthlist[idx][1] = i;
 		idx++;
 	}
  }
