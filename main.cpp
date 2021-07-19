@@ -152,7 +152,7 @@ int main() {
 		bool write_or_not=1;
 		fstream read;
 		char str[1024];
-		sprintf(str, "NL_%.2f_%.2f_Gth_%.2f_%.2f.csv" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, Gth2);
+		sprintf(str, "NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f.csv" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr);
 		read.open(str,fstream::app);                                                         
 																	
 		for (int i=1; i<=100; i++) {
