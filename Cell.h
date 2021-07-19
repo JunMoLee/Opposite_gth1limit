@@ -194,7 +194,8 @@ public:
 	double paramBLTD;	// Parameter B for LTD nonlinearity
 	double sigmaDtoD;	// Sigma of device-to-device variation on weight update nonliearity baseline
 	double sigmaCtoC;	// Sigma of cycle-to-cycle variation on weight update
-
+	double refGp;
+	double refGn;
 	/*PCM*/
 	double NL_LTP_Gp;
 	double NL_LTD_Gp;
