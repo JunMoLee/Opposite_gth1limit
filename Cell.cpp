@@ -452,12 +452,12 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 		numPulse = 0;
 				
 			}
-				
-			else if (conductanceNewGp > param->Gth2){
-				
-			conductanceNewGn = 0;
 			
-			}
+			// else if (conductanceNewGp > param->Gth2){
+				
+			// conductanceNewGn = 0;
+			
+			// } '
 					
 					
 		else{
@@ -514,10 +514,10 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 		
 			}
 			
-			else if(conductanceNewGn > param->Gth2){
-				conductanceNewGp = 0;
+			// else if(conductanceNewGn > param->Gth2){
+			//	conductanceNewGp = 0;
 		
-			}
+			// }
 			
 			else{
 				
