@@ -56,7 +56,7 @@ Param::Param() {
 	alpha1 =l/100.0;	// Learning rate for the weights from input to hidden layer
 	alpha2 =l/2.0/100.0;	// Learning rate for the weights from hidden to output layer
 	const double
-	revlr = 15;
+	revlr=15;
 	ratio = alpha1 / (revlr/100);
 	maxWeight = 1;	// Upper bound of weight value
 	minWeight = -1;	// Lower bound of weight value
