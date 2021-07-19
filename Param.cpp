@@ -65,6 +65,8 @@ Param::Param() {
     optimization_type = "SGD";
         ReverseUpdate = 1;
 	FullRefresh= 0;
+	Reference = 0;
+	RefPeriod = 100;
 	
 	Gth1 = 1;
 	Gth2 = 9;
