@@ -276,6 +276,7 @@ RealDevice::RealDevice(int x, int y, double p, double n) {
 	nmaxConductance = 10;
 	refConductance = 0;
 	
+	
 	// Minimum cell conductance (S)
 	//maxConductance = 1/4.71e6;
 	//minConductance = maxConductance / 19.6;
@@ -283,6 +284,8 @@ RealDevice::RealDevice(int x, int y, double p, double n) {
 	avgMinConductance = pminConductance-nmaxConductance + refConductance; // Average minimum cell conductance (S)
 	conductanceGp = pminConductance;
 	conductanceGn = nminConductance;
+	refGp = conductanceGp;
+	refGn =  conductanceGn;
 	conductance = conductanceGp - conductanceGn + refConductance;	// Current conductance (S) (dynamic variable)
 	conductancePrev = conductance;	// Previous conductance (S) (dynamic variable)
 	readVoltage = 0.5;	// On-chip read voltage (Vr) (V)
@@ -437,6 +440,19 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	double totalcondrange = pmaxConductance + nmaxConductance - pminConductance - nminConductance;
 	double pcondrange = pmaxConductance - pminConductance;
 	double ncondrange = nmaxConductance - nminConductance;
+	int epoch = int( iteration/8000);
+	if (param -> Reference != 0)
+	{refGp = conductanceNewGp;
+	 refGn= conductanceNewGn;
+	}
+	else{
+	if (iteration == 0 || iteration % param->RefPeriod == param->RefPeriod-1){
+	refGp = conductanceNewGp;
+	refGn= conductanceNewGn;
+		
+		
+	}
+	    }
 	
 	bool GpGnCell = true;
 	if (deltaWeightNormalized > 0) {	// LTP weight update
@@ -444,7 +460,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 		
 		
 		if(param->ReverseUpdate && iteration % param->newUpdateRate == param->newUpdateRate-1){
-		if(conductanceNewGp < param->Gth1)
+		if(refGp < param->Gth1)
 		{
 		GpGnCell = false;
 		deltaWeightNormalized = -totalcondrange/ncondrange*deltaWeightNormalized/(maxWeight-minWeight);
@@ -505,7 +521,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	} else {	// LTD weight update
 		
 		if(param->ReverseUpdate && iteration % param->newUpdateRate == param->newUpdateRate-1){
-			if(conductanceNewGn < param->Gth1){
+			if(refGn < param->Gth1){
 						GpGnCell = true;
 						deltaWeightNormalized = totalcondrange/pcondrange*deltaWeightNormalized/(maxWeight-minWeight);
 						deltaWeightNormalized = truncate(deltaWeightNormalized, maxNumLevelpLTD);
