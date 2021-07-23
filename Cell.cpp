@@ -441,7 +441,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	double pcondrange = pmaxConductance - pminConductance;
 	double ncondrange = nmaxConductance - nminConductance;
 	int epoch = int( iteration/8000);
-	if (param -> Reference != 0)
+	if (param -> Reference == 0)
 	{refGp = conductanceNewGp;
 	 refGn= conductanceNewGn;
 	}
@@ -459,7 +459,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 		
 		
 		
-		if(param->ReverseUpdate && iteration % param->newUpdateRate == param->newUpdateRate-1){
+		if(param->ReverseUpdate && (iteration % param->newUpdateRate == param->newUpdateRate-1)){
 		if(refGp < param->Gth1)
 		{
 		GpGnCell = false;
@@ -520,7 +520,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 
 	} else {	// LTD weight update
 		
-		if(param->ReverseUpdate && iteration % param->newUpdateRate == param->newUpdateRate-1){
+		if(param->ReverseUpdate && (iteration % param->newUpdateRate == param->newUpdateRate-1)){
 			if(refGn < param->Gth1){
 						GpGnCell = true;
 						deltaWeightNormalized = totalcondrange/pcondrange*deltaWeightNormalized/(maxWeight-minWeight);
