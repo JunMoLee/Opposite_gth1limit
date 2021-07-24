@@ -144,6 +144,7 @@ int main() {
 		double Gth1 = param -> Gth1;
 	  	double Gth2 = param -> Gth2;
 		double revlr = LA / param -> ratio ;
+		int refperiod = param->RefPeriod;
 
 
 														               
@@ -152,7 +153,7 @@ int main() {
 		bool write_or_not=1;
 		fstream read;
 		char str[1024];
-		sprintf(str, "NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d.csv" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod);
+		sprintf(str, "NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.csv" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
 		read.open(str,fstream::app);                                                         
 																	
 		for (int i=1; i<=100; i++) {
