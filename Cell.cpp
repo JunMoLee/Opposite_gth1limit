@@ -683,7 +683,8 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	noise = ( m1- m2) *   ( m1- m2) ;
 		
 	}
-	
+	if (mult<0)
+	{printf("error");}
 	realpulse = realpulse * realpulse;
 	conductanceNew = conductanceNewGp - conductanceNewGn + refConductance;
 	conductance = conductanceNew;
