@@ -676,7 +676,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	else
 	{
 		
-	double m1 = ( conductanceNewGn - conductanceGn );
+	double m1 = -( conductanceNewGn - conductanceGn );
 	double m2 = realpulse;
 	noisypulse = m1*m1;
 	mult = m1 * m2 ;
