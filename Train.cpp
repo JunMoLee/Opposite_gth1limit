@@ -121,6 +121,8 @@ double s1[param->nHide];    // Output delta from input layer to the hidden layer
 double s2[param->nOutput];  // Output delta from hidden layer to the output layer [param->nOutput]
 double IHnoise;
 double HOnoise;
+double IHcosine;
+double HOcosine;
 		double NL_LTP_Gp = static_cast<RealDevice*>(arrayIH->cell[0][0])->NL_LTP_Gp;
 	        double NL_LTD_Gp = static_cast<RealDevice*>(arrayIH->cell[0][0])->NL_LTD_Gp;
 		double NL_LTP_Gn = static_cast<RealDevice*>(arrayIH->cell[0][0])->NL_LTP_Gn;
@@ -153,6 +155,8 @@ double HOnoise;
 			{
 				IHnoise=0;
 				HOnoise=0;
+				IHcosine=0;
+				HOcosine =0;
 				
 			}
 
@@ -578,8 +582,7 @@ double HOnoise;
 							if (AnalogNVM *temp = dynamic_cast<AnalogNVM*>(arrayIH->cell[jj][k])) {	// Analog eNVM
 					
 								arrayIH->WriteCell(jj, k, deltaWeight1[jj][k], weight1[jj][k], param->maxWeight, param->minWeight, true, iteration);
-								IHnoise = IHnoise + arrayIH->cell[jj][k])->noise / param ->RecordPeriod;
-								
+
 								
 							    weight1[jj][k] = arrayIH->ConductanceToWeight(jj, k, param->maxWeight, param->minWeight); 
                                 weightChangeBatch = weightChangeBatch || static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->numPulse;
@@ -893,7 +896,7 @@ double HOnoise;
 									
                                                                 arrayHO->WriteCell(jj, k, deltaWeight2[jj][k], weight2[jj][k], param->maxWeight, param->minWeight, true , iteration);
 								
-								HOnoise = HOnoise + arrayHO->cell[jj][k])->noise / param ->RecordPeriod;
+								
 						                weight2[jj][k] = arrayHO->ConductanceToWeight(jj, k, param->maxWeight, param->minWeight);
 								weightChangeBatch = weightChangeBatch || static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->numPulse;
 								
@@ -1120,6 +1123,73 @@ double HOnoise;
 			}
 				
 			}
+			
+
+			if(param -> Record){
+				
+			for (int j = 0; j < param->nHide; j++) {
+				
+				double realpulsesum = 0;
+				double noisypulsesum = 0;
+				double multsum = 0;
+				double noisesum =0;
+				for (int k = 0; k < param->nInput; k++) {
+					realpulsesum = realpulsesum + arrayIH->cell[j][k])->realpulsesum;
+					noisypulsesum  = noisypulsesum  + arrayIH->cell[j][k])->noisypulsesum ;
+					multsum = multsum + arrayIH->cell[j][k])->multsum;
+					noisesum = noisesum + arrayIH->cell[j][k])->noisesum;
+				}
+				IHnoise += noisesum;
+				IHcosine += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
+			}
+			
+			for (int j = 0; j < param->nOutput; j++) {
+				double realpulsesum = 0;
+				double noisypulsesum = 0;
+				double multsum = 0;
+				double noisesum =0;
+				
+				for (int k = 0; k < param->nHide; k++) {
+					realpulsesum = realpulsesum + arrayHO->cell[j][k])->realpulsesum;
+					noisypulsesum  = noisypulsesum  + arrayHO->cell[j][k])->noisypulsesum ;
+					multsum = multsum + arrayHO->cell[j][k])->multsum;
+					noisesum = noisesum + arrayHO->cell[j][k])->noisesum;
+					
+				}
+				HOnoise += noisesum;
+				HOcosine += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
+			}
+			
+			}
+			
+			if(param -> Record){
+				
+			if (  iteration % param - >RecordPeriod == param - >RecordPeriod -1)
+			{	
+
+				
+				fstream read;
+				printf("IHnoise : %d, HOnoise: %d", IHnoise, HOnoise)
+				char str[1024];
+				sprintf(str, "txt_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.txt" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
+			 	read.open(str,fstream::app);
+			 	read <<IHnoise<<", "<<HOnoise<<endl;
+			 
+				IHnoise=0;
+				HOnoise=0;
+				HOcosine=0;
+				IHcosuine=0;
+				
+		
+				
+				
+
+				
+
+			}
+				
+			}			
+			
 			/// conductance saturation management: Full-Reset (end) /// 
 			
 			/// new conductance saturation management ///
@@ -1132,18 +1202,7 @@ double HOnoise;
 			
 		       /// new conductance saturation management (end) ///
 			
-			if (  iteration % param - >RecordPeriod == param - >RecordPeriod -1)
-			{	fstream read;
-				printf("IHnoise : %d, HOnoise: %d", IHnoise, HOnoise)
-				char str[1024];
-				sprintf(str, "txt_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.txt" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
-			 	read.open(str,fstream::app);
-			 	read <<IHnoise<<", "<<HOnoise<<endl;
-			 
-				IHnoise=0;
-				HOnoise=0;
-				
-			}
+
 			
 			
 		}
