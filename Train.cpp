@@ -108,7 +108,7 @@ double Adam(double gradient, double learning_rate, double momentumPreV, double v
 
 
 
-void Train(const int numTrain, const int epochs, char *optimization_type) {
+void Train(int iter, const int numTrain, const int epochs, char *optimization_type) {
 int numBatchReadSynapse;	    // # of read synapses in a batch read operation (decide later)
 int numBatchWriteSynapse;	// # of write synapses in a batch write operation (decide later)
 double outN1[param->nHide]; // Net input to the hidden layer [param->nHide]
@@ -151,7 +151,7 @@ double HOcosine;
 		// iteration witin batch //
 		for (int batchSize = 0; batchSize < numTrain; batchSize++) {
 			
-			int iteration = t * numTrain + batchSize;
+			int iteration = numTrain * (iter-1) + batchSize;
 						
 			if (  iteration == 0 )
 			{
@@ -1201,7 +1201,7 @@ double HOcosine;
 
 				int recordidx = iteration / param ->RecordPeriod;
 				fstream read;
-				printf("[Recordidx : %d] IHnoise : %.2f, HOnoise: %.2f, IHcosine: %.2f, HOcosine: %.2f /" , recordidx,IHnoise*10000, HOnoise*10000,IHcosine, HOcosine );
+				printf("[Recordidx : %d] IHnoise : %.2f, HOnoise: %.2f, IHcosine: %.2f, HOcosine: %.2f /" , recordidx,IHnoise*1000000, HOnoise*1000000,IHcosine, HOcosine );
 				char str[1024];
 				sprintf(str, "txt_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.txt" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
 			 	read.open(str,fstream::app);
