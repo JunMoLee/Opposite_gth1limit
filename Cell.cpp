@@ -466,7 +466,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 		GpGnCell = false;
 		deltaWeightNormalized = -totalcondrange/ncondrange*deltaWeightNormalized/(maxWeight-minWeight);
 		deltaWeightNormalized = truncate(deltaWeightNormalized, maxNumLevelnLTD);
-		int realpulse = deltaWeightNormalized;
+		
 		numPulse = 0;
 				
 			}
