@@ -441,10 +441,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	double totalcondrange = pmaxConductance + nmaxConductance - pminConductance - nminConductance;
 	double pcondrange = pmaxConductance - pminConductance;
 	double ncondrange = nmaxConductance - nminConductance;
-	noise = 0;
-	noisypulse = 0;
-	realpulse =0;
-	mult = 0;
+
 	
 	int epoch = int( iteration/8000);
 	
