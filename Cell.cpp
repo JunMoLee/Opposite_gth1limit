@@ -670,7 +670,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	double m2 = realpulse;
 	noisypulse = m1*m1;
 	mult = m1 * m2 ;
-	noise = ( m1- m2) *   ( m1- m2) 
+	noise = ( m1- m2) *   ( m1- m2) ;
 	}
 	
 	else
@@ -680,7 +680,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	double m2 = realpulse;
 	noisypulse = m1*m1;
 	mult = m1 * m2 ;
-	noise = ( m1- m2) *   ( m1- m2) 
+	noise = ( m1- m2) *   ( m1- m2) ;
 		
 	}
 	
