@@ -1169,9 +1169,9 @@ double HOcosine;
 			if (  iteration % param ->RecordPeriod == param ->RecordPeriod -1)
 			{	
 
-				
+				int recordidx =  iteration /param ->RecordPeriod;
 				fstream read;
-				printf("IHnoise : %d, HOnoise: %d", IHnoise, HOnoise);
+				printf("[Record idx: %d] IHnoise : %d, HOnoise: %d, ", recordidx, IHnoise, HOnoise);
 				char str[1024];
 				sprintf(str, "txt_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.txt" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
 			 	read.open(str,fstream::app);
