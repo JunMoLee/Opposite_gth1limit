@@ -661,12 +661,14 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	}
 	
 	conductancePrev = conductance;
+	double conductanceGpPrev = conductanceGp ;
+	double conductanceGnPrev = conductanceGn ;
 	conductanceGp = conductanceNewGp;
 	conductanceGn = conductanceNewGn;
 	
-	if( (conductanceGp - conductanceNewGp)*(conductanceGp - conductanceNewGp) > (conductanceGn - conductanceNewGn) * (conductanceGn - conductanceNewGn))
+	if( (conductanceGpPrev - conductanceNewGp)*(conductanceGpPrev - conductanceNewGp) > (conductanceGnPrev - conductanceNewGn) * (conductanceGnPrev - conductanceNewGn))
 	{
-	double m1 = ( conductanceNewGp - conductanceGp );
+	double m1 = ( conductanceNewGp - conductanceGpPrev );
 	double m2 = realpulse;
 	noisypulse = m1*m1;
 	mult = m1 * m2 ;
@@ -676,7 +678,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	else
 	{
 		
-	double m1 = -( conductanceNewGn - conductanceGn );
+	double m1 = -( conductanceNewGn - conductanceGnPrev );
 	double m2 = realpulse;
 	noisypulse = m1*m1;
 	mult = m1 * m2 ;
@@ -686,6 +688,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	if (mult<0)
 	{printf("error");}
 	realpulse = realpulse * realpulse;
+	
 	conductanceNew = conductanceNewGp - conductanceNewGn + refConductance;
 	conductance = conductanceNew;
 }
