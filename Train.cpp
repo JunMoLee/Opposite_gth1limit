@@ -1127,6 +1127,8 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 			double HOupdatecount =1;
 			double IHnoise = 0;
 			double HOnoise = 0;
+				double IHcosine = 0;
+			double HOcosine  = 0;
 						
 			for (int j = 0; j < param->nHide; j++) {
 				
