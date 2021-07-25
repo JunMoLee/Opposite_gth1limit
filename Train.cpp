@@ -1201,7 +1201,7 @@ double HOcosine;
 
 				int recordidx = iteration / param ->RecordPeriod;
 				fstream read;
-				printf("[Recordidx : %d] IHnoise : %.2f, HOnoise: %.2f, IHcosine: %.2f, HOcosine: %.2f /" , recordidx,IHnoise*1000000, HOnoise*1000000,IHcosine, HOcosine );
+				printf("[Recordidx : %d] IHnoise : %.2f, HOnoise: %.2f, IHcosine: %.2f, HOcosine: %.2f / " , recordidx,IHnoise*1000000, HOnoise*1000000,IHcosine*1000000, HOcosine*1000000 );
 				char str[1024];
 				sprintf(str, "txt_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.txt" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
 			 	read.open(str,fstream::app);
