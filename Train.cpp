@@ -1136,10 +1136,10 @@ double HOcosine;
 				double multsum = 0;
 				double noisesum =0;
 				for (int k = 0; k < param->nInput; k++) {
-					realpulsesum = realpulsesum + arrayIH->cell[j][k]->realpulse;
-					noisypulsesum  = noisypulsesum  + arrayIH->cell[j][k]->noisypulse ;
-					multsum = multsum + arrayIH->cell[j][k]->mult;
-					noisesum = noisesum + arrayIH->cell[j][k]->noise;
+					realpulsesum = realpulsesum + static_cast<AnalogNVM*>(arrayIH->cell[j][k])->realpulse;
+					noisypulsesum  = noisypulsesum  + static_cast<AnalogNVM*>(arrayIH->cell[j][k])->noisypulse ;
+					multsum = multsum + static_cast<AnalogNVM*>(arrayIH->cell[j][k])->mult;
+					noisesum = noisesum + static_cast<AnalogNVM*>(arrayIH->cell[j][k])->noise;
 				}
 				IHnoise += noisesum;
 				IHcosine += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
@@ -1152,10 +1152,10 @@ double HOcosine;
 				double noisesum =0;
 				
 				for (int k = 0; k < param->nHide; k++) {
-					realpulsesum = realpulsesum + arrayHO->cell[j][k]->realpulse;
-					noisypulsesum  = noisypulsesum  + arrayHO->cell[j][k]->noisypulse ;
-					multsum = multsum + arrayHO->cell[j][k]->mult;
-					noisesum = noisesum + arrayHO->cell[j][k]->noise;
+					realpulsesum = realpulsesum + static_cast<AnalogNVM*>(arrayHO->cell[j][k])->realpulse;
+					noisypulsesum  = noisypulsesum  + static_cast<AnalogNVM*>(arrayHO->cell[j][k])->noisypulse ;
+					multsum = multsum + static_cast<AnalogNVM*>(arrayHO->cell[j][k])->mult;
+					noisesum = noisesum + static_cast<AnalogNVM*>(arrayHO->cell[j][k])->noise;
 					
 				}
 				HOnoise += noisesum;
