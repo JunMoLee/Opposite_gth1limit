@@ -1165,8 +1165,8 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				}
 			}
 			
-				param->IHnoise += IHnoiseunit;
-				param->IHcosine += IHcosineunit;
+				param->IHnoise = param->IHnoise + IHnoiseunit;
+				param->IHcosine = param->IHcosine + IHcosineunit;
 		
 			for (int j = 0; j < param->nOutput; j++) {
 				double realpulsesum = 0;
@@ -1192,6 +1192,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					}
 					else{
 				HOcosineunit += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
+						printf("%.2f", sqrt (multsum*multsum /(noisypulsesum * realpulsesum) ));
 						
 					
 						
@@ -1199,7 +1200,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				HOupdatecount++;
 				HOnoiseunit = HOnoiseunit / HOupdatecount;
 				HOcosineunit = HOcosineunit / HOupdatecount;
-					printf("%.2f", HOcosineunit );
+					
 				}
 			}
 				param->HOnoise += HOnoiseunit;
