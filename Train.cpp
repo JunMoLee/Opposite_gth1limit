@@ -1128,7 +1128,8 @@ double HOcosine;
 			
 
 			if(param -> Record){
-				
+			double IHupdatecount =1;
+			double HOupdatecount =1;			
 			for (int j = 0; j < param->nHide; j++) {
 				
 				double realpulsesum = 0;
@@ -1141,10 +1142,26 @@ double HOcosine;
 					multsum = multsum + static_cast<AnalogNVM*>(arrayIH->cell[j][k])->mult;
 					noisesum = noisesum + static_cast<AnalogNVM*>(arrayIH->cell[j][k])->noise;
 				}
+				
+				if (realpulsesum>0){
+				IHnoise = IHnoise * IHupdatecount;
+				IHcosine = IHcosine * IHupdatecount;
 				IHnoise += noisesum;
+					
+					if(noisypulsesum == 0){
+						IHcosine += 0;
+					}
+					else{
 				IHcosine += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
+					}
+					
+				IHupdatecount++;
+				IHnoise =IHnoise / IHupdatecount;
+				IHcosine =IHcosine / IHupdatecount;
+				}
 			}
 			
+		
 			for (int j = 0; j < param->nOutput; j++) {
 				double realpulsesum = 0;
 				double noisypulsesum = 0;
@@ -1158,8 +1175,21 @@ double HOcosine;
 					noisesum = noisesum + static_cast<AnalogNVM*>(arrayHO->cell[j][k])->noise;
 					
 				}
+				
+				if (realpulsesum>0){
+				HOnoise = HOnoise * HOupdatecount;
+				HOcosine = HOcosine * HOupdatecount;
 				HOnoise += noisesum;
+					if(noisypulsesum == 0){
+						HOcosine += 0;
+					}
+					else{
 				HOcosine += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
+					}
+				HOupdatecount++;
+				HOnoise = HOnoise / HOupdatecount;
+				HOcosine = HOcosine / HOupdatecount;
+				}
 			}
 			
 			}
