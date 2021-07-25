@@ -1152,8 +1152,8 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					}
 					
 				IHupdatecount++;
-				param->IHnoise =IHnoise / IHupdatecount;
-				param->IHcosine =IHcosine / IHupdatecount;
+				param->IHnoise =param->IHnoise / IHupdatecount;
+				param->IHcosine =param->IHcosine / IHupdatecount;
 				}
 			}
 			
