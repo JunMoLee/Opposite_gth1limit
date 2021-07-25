@@ -1166,7 +1166,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				double noisypulsesum = 0;
 				double multsum = 0;
 				double noisesum =0;
-				double HOupdatecount =0;
+				
 				
 				for (int k = 0; k < param->nHide; k++) {
 					realpulsesum = realpulsesum + static_cast<RealDevice*>(arrayHO->cell[j][k])->realpulse;
