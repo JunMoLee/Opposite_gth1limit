@@ -666,6 +666,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	if( (conductanceGpPrev - conductanceNewGp)*(conductanceGpPrev - conductanceNewGp) > (conductanceGnPrev - conductanceNewGn) * (conductanceGnPrev - conductanceNewGn))
 	{
 	double m1 = ( conductanceNewGp - conductanceGpPrev );
+	printf("%.2f", m1);
 	double m2 = realpulse;
 	noisypulse = m1*m1;
 	mult = m1 * m2 ;
