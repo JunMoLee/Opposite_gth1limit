@@ -1147,8 +1147,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				}
 				
 				if (realpulsesum>0){
-				IHnoiseunit =IHnoiseunit * IHupdatecount;
-				IHcosineunit =IHcosineunit * IHupdatecount;
+			
 				IHnoiseunit += noisesum;
 					
 					if(noisypulsesum == 0){
@@ -1160,13 +1159,13 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					}
 					
 				IHupdatecount++;
-				IHnoiseunit =IHnoiseunit / IHupdatecount;
-				IHcosineunit =IHcosineunit / IHupdatecount;
+				
+			
 				}
 			}
 			
-				param->IHnoise = param->IHnoise + IHnoiseunit;
-				param->IHcosine = param->IHcosine + IHcosineunit;
+				param->IHnoise = param->IHnoise + IHnoiseunit / IHupdatecount;
+				param->IHcosine = param->IHcosine + IHcosineunit/ IHupdatecount;
 		
 			for (int j = 0; j < param->nOutput; j++) {
 				double realpulsesum = 0;
@@ -1184,8 +1183,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				}
 				
 				if (realpulsesum>0){
-				HOnoiseunit =HOnoiseunit * HOupdatecount;
-				HOcosineunit =HOcosineunit * HOupdatecount;
+			
 				HOnoiseunit += noisesum;
 					if(noisypulsesum == 0){
 						HOcosineunit += 0;
@@ -1198,13 +1196,12 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 						
 					}
 				HOupdatecount++;
-				HOnoiseunit = HOnoiseunit / HOupdatecount;
-				HOcosineunit = HOcosineunit / HOupdatecount;
+			
 					
 				}
 			}
-				param->HOnoise += HOnoiseunit;
-				param->HOcosine += HOcosineunit;
+				param->HOnoise =param->HOnoise + HOnoiseunit / HOupdatecount;
+				param->HOcosine = param->HOcosine  +HOcosineunit / HOupdatecount;
 			
 			
 			
