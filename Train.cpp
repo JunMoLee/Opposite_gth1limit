@@ -1123,8 +1123,8 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 			}
 
 			if(param -> Record){
-			double IHupdatecount =1;
-			double HOupdatecount =1;
+			double IHupdatecount =0;
+			double HOupdatecount =0;
 			double IHnoiseunit = 0;
 			double HOnoiseunit = 0;
 			double IHcosineunit = 0;
@@ -1163,9 +1163,13 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 			
 				}
 			}
-			
+			if( IHupdatecount != 0){
 				param->IHnoise = param->IHnoise + IHnoiseunit / IHupdatecount;
 				param->IHcosine = param->IHcosine + IHcosineunit/ IHupdatecount;
+			}
+				else{
+					param -> IHnoupdate++;
+				}
 		
 			for (int j = 0; j < param->nOutput; j++) {
 				double realpulsesum = 0;
@@ -1200,8 +1204,14 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					
 				}
 			}
-				param->HOnoise =param->HOnoise + HOnoiseunit / HOupdatecount;
+				if( HOupdatecount != 0){
+				param->HOnoise = param->HOnoise + HOnoiseunit / HOupdatecount;
 				param->HOcosine = param->HOcosine  +HOcosineunit / HOupdatecount;
+				}
+				else
+				{
+				param -> HOnoupdate++;
+				}
 			
 			
 			
@@ -1212,7 +1222,9 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 				int recordidx = iteration / param ->RecordPeriod;
 				fstream read;
-				printf("[Recordidx : %d] IHnoise : %.2f, HOnoise: %.2f, IHcosine: %.2f, HOcosine: %.2f / " , recordidx,param->IHnoise *10000.0/ param ->RecordPeriod, param->HOnoise*10000.0/ param ->RecordPeriod,param->IHcosine*10000.0/ param ->RecordPeriod, param->HOcosine*10000.0/ param ->RecordPeriod );
+				double IHcount = param ->RecordPeriod - param -> IHnoupdate;
+				double HOcount = param ->RecordPeriod - param -> HOnoupdate;
+				printf("[Recordidx : %d] IHnoise : %.2f, HOnoise: %.2f, IHcosine: %.2f, HOcosine: %.2f / " , recordidx,param->IHnoise *10000.0/IHcount param->HOnoise*10000.0/HOcount,param->IHcosine*10000.0/IHcount, param->HOcosine*10000.0/HOcount );
 				char str[1024];
 				sprintf(str, "txt_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.txt" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
 			 	read.open(str,fstream::app);
@@ -1222,6 +1234,8 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				param->HOnoise=0;
 				param->HOcosine=0;
 				param->IHcosine=0;
+				param -> IHnoupdate = 0;
+				param -> HOnoupdate=0;
 				
 		
 				
