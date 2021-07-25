@@ -1125,10 +1125,10 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 			if(param -> Record){
 			double IHupdatecount =1;
 			double HOupdatecount =1;
-			double IHnoise = 0;
-			double HOnoise = 0;
-				double IHcosine = 0;
-			double HOcosine  = 0;
+			double IHnoiseunit = 0;
+			double HOnoiseunit = 0;
+			double IHcosineunit = 0;
+			double HOcosineunit  = 0;
 						
 			for (int j = 0; j < param->nHide; j++) {
 				
@@ -1147,26 +1147,26 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				}
 				
 				if (realpulsesum>0){
-				IHnoise =IHnoise * IHupdatecount;
-				IHcosine =IHcosine * IHupdatecount;
-				IHnoise += noisesum;
+				IHnoiseunit =IHnoiseunit * IHupdatecount;
+				IHcosineunit =IHcosineunit * IHupdatecount;
+				IHnoiseunit += noisesum;
 					
 					if(noisypulsesum == 0){
-						param->IHcosine += 0;
+						IHcosineunit += 0;
 					}
 					else{
-				IHcosine += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
+				IHcosineunit += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
 						
 					}
 					
 				IHupdatecount++;
-				IHnoise =param->IHnoise / IHupdatecount;
-				IHcosine =param->IHcosine / IHupdatecount;
+				IHnoiseunit =IHnoiseunit / IHupdatecount;
+				IHcosineunit =IHcosineunit / IHupdatecount;
 				}
 			}
 			
-				param->IHnoise += IHnoise;
-				param->IHcosine += IHcosine;
+				param->IHnoise += IHnoiseunit;
+				param->IHcosine += IHcosineunit;
 		
 			for (int j = 0; j < param->nOutput; j++) {
 				double realpulsesum = 0;
@@ -1184,26 +1184,26 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				}
 				
 				if (realpulsesum>0){
-				HOnoise =HOnoise * HOupdatecount;
-				HOcosine =HOcosine * HOupdatecount;
-				HOnoise += noisesum;
+				HOnoiseunit =HOnoiseunit * HOupdatecount;
+				HOcosineunit =HOcosineunit * HOupdatecount;
+				HOnoiseunit += noisesum;
 					if(noisypulsesum == 0){
-						param->HOcosine += 0;
+						HOcosine += 0;
 					}
 					else{
-				HOcosine += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
+				HOcosineunit += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
 						
 					
 						
 					}
 				HOupdatecount++;
-				HOnoise = param->HOnoise / HOupdatecount;
-				HOcosine = param->HOcosine / HOupdatecount;
+				HOnoiseunit = HOnoiseunit / HOupdatecount;
+				HOcosineunit = HOcosineunit / HOupdatecount;
 					//printf("%.2f", param->HOcosine );
 				}
 			}
-				param->HOnoise += HOnoise;
-				param->HOcosine += HOcosine;
+				param->HOnoise += HOnoiseunit;
+				param->HOcosine += HOcosineunit;
 			
 			
 			
