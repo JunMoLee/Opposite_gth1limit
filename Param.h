@@ -68,10 +68,10 @@ public:
 	int RefPeriod;
 	int Record;
 	int RecordPeriod;
-	double IHnoise;
-	double IHcosine;
-	double HOnoise;
-	double HOcosine;
+	double IHnoise =0;
+	double IHcosine=0;
+	double HOnoise=0;
+	double HOcosine=0;
 
 	/* Hardware parameters */
 	bool useHardwareInTrainingFF;   // Use hardware in the feed forward part of training or not (true: realistic hardware, false: ideal software)
