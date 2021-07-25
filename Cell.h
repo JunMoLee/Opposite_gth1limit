@@ -211,6 +211,8 @@ public:
 	double paramBGnd;
 	double noise =0;
 	double mult = 0;
+	double realpulse = 0;
+	double noisypule = 0;
 	
 	RealDevice(int x, int y, double p, double  n);
 	double Read(double voltage);	// Return read current (A)
