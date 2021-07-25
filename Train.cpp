@@ -1197,7 +1197,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				HOupdatecount++;
 				HOnoise = param->HOnoise / HOupdatecount;
 				HOcosine = param->HOcosine / HOupdatecount;
-					printf("%.2f", param->HOcosine );
+					//printf("%.2f", param->HOcosine );
 				}
 			}
 				param->HOnoise += HOnoise;
