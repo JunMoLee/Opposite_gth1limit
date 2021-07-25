@@ -470,7 +470,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 		deltaWeightNormalized = -totalcondrange/ncondrange*deltaWeightNormalized/(maxWeight-minWeight);
 		deltaWeightNormalized = truncate(deltaWeightNormalized, maxNumLevelnLTD);
 		numPulse = deltaWeightNormalized * maxNumLevelnLTD;
-		realpulse = - numPulse/maxNumLevelnLTD  ;
+		realpulse = - numPulse*1.00/maxNumLevelnLTD  ;
 
 		
 		
@@ -494,7 +494,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 
 			
 		numPulse = deltaWeightNormalized * maxNumLevelnLTD;
-			realpulse = numPulse/maxNumLevelnLTD  ;
+			realpulse = numPulse*1.00/maxNumLevelnLTD  ;
 		if (numPulse > maxNumLevelnLTD) {
 			numPulse = maxNumLevelnLTD;
 			}
@@ -518,7 +518,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 		deltaWeightNormalized = totalcondrange/pcondrange*deltaWeightNormalized/(maxWeight-minWeight);
 		deltaWeightNormalized = truncate(deltaWeightNormalized, maxNumLevelpLTP);
 		numPulse = deltaWeightNormalized * maxNumLevelpLTP;
-			realpulse = numPulse/ maxNumLevelpLTP ;
+			realpulse = numPulse*1.00/ maxNumLevelpLTP ;
 		if (numPulse > maxNumLevelpLTP) {
 			numPulse = maxNumLevelpLTP;
 		}
@@ -541,7 +541,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 						deltaWeightNormalized = totalcondrange/pcondrange*deltaWeightNormalized/(maxWeight-minWeight);
 						deltaWeightNormalized = truncate(deltaWeightNormalized, maxNumLevelpLTD);
 						numPulse = deltaWeightNormalized * maxNumLevelpLTD;
-				realpulse = numPulse/ maxNumLevelpLTD;
+				realpulse = numPulse *1.00/ maxNumLevelpLTD;
 				
 		
 			}
@@ -557,7 +557,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 				deltaWeightNormalized = -totalcondrange/pcondrange*deltaWeightNormalized/(maxWeight-minWeight)/param->ratio;
 				deltaWeightNormalized = truncate(deltaWeightNormalized, maxNumLevelpLTD);
 				numPulse = deltaWeightNormalized * maxNumLevelpLTD;
-				realpulse = - numPulse/ maxNumLevelpLTD  ;
+				realpulse = - numPulse*1.00/ maxNumLevelpLTD  ;
 				if (numPulse > maxNumLevelpLTD) {
 					numPulse = maxNumLevelpLTD;
 				}
@@ -578,7 +578,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 			deltaWeightNormalized = -totalcondrange/ncondrange*deltaWeightNormalized/(maxWeight-minWeight);
 			deltaWeightNormalized = truncate(deltaWeightNormalized, maxNumLevelnLTP);
 			numPulse = deltaWeightNormalized * maxNumLevelnLTP;
-			realpulse = - numPulse/maxNumLevelnLTP;
+			realpulse = - numPulse*1.00/maxNumLevelnLTP;
 			if (numPulse > maxNumLevelnLTP) {
 				numPulse = maxNumLevelnLTP;
 			} 
