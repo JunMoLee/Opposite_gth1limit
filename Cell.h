@@ -145,10 +145,7 @@ public:
 	double PWstepLTD;   // Write pulse width for LTD or weight decrease (s)
 	double writeVoltageSquareSum;   // Sum of V^2 of non-identical pulses (for weight update energy calculation in subcircuits)
 	
-	double noise =0;
-	double mult = 0;
-	double realpulse = 0;
-	double noisypulse = 0;
+
 
 	virtual double Read(double voltage) = 0;
 	virtual void Write(int iteration, double deltaWeightNormalized, double weight, double minWeight, double maxWeight) = 0;
@@ -214,6 +211,10 @@ public:
 	double paramBGpd;
 	double paramBGn;
 	double paramBGnd;
+	double noise =0;
+	double mult = 0;
+	double realpulse = 0;
+	double noisypulse = 0;
 
 	
 	RealDevice(int x, int y, double p, double  n);
