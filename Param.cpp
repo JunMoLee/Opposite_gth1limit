@@ -67,8 +67,8 @@ Param::Param() {
 	FullRefresh= 0;
 	Reference = 0;
 	RefPeriod = 100;
-	Record = 0;
-	RecordPeriod = 0;
+	Record = 1;
+	RecordPeriod = 209;
 	
 	Gth1 = 1;
 	Gth2 = 9;
