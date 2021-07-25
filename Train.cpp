@@ -1121,9 +1121,12 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 			}
 				
 			}
+
+			if(param -> Record){
 			double IHupdatecount =1;
 			double HOupdatecount =1;
-			if(param -> Record){
+			double IHnoise = 0;
+			double HOnoise = 0;
 						
 			for (int j = 0; j < param->nHide; j++) {
 				
@@ -1142,24 +1145,26 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				}
 				
 				if (realpulsesum>0){
-				param->IHnoise = param->IHnoise * IHupdatecount;
-				param->IHcosine = param->IHcosine * IHupdatecount;
-				param->IHnoise += noisesum;
+				IHnoise = param->IHnoise * IHupdatecount;
+				IHcosine = param->IHcosine * IHupdatecount;
+				IHnoise += noisesum;
 					
 					if(noisypulsesum == 0){
 						param->IHcosine += 0;
 					}
 					else{
-				param->IHcosine += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
+				IHcosine += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
 						
 					}
 					
 				IHupdatecount++;
-				param->IHnoise =param->IHnoise / IHupdatecount;
-				param->IHcosine =param->IHcosine / IHupdatecount;
+				IHnoise =param->IHnoise / IHupdatecount;
+				IHcosine =param->IHcosine / IHupdatecount;
 				}
 			}
 			
+				param->IHnoise += IHnoise;
+				param->IHcosine += IHcosine;
 		
 			for (int j = 0; j < param->nOutput; j++) {
 				double realpulsesum = 0;
@@ -1177,28 +1182,30 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				}
 				
 				if (realpulsesum>0){
-				param->HOnoise = param->HOnoise * HOupdatecount;
-				param->HOcosine = param->HOcosine * HOupdatecount;
-				param->HOnoise += noisesum;
+				HOnoise = param->HOnoise * HOupdatecount;
+				HOcosine = param->HOcosine * HOupdatecount;
+				HOnoise += noisesum;
 					if(noisypulsesum == 0){
 						param->HOcosine += 0;
 					}
 					else{
-				param->HOcosine += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
+				HOcosine += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
 						
 					
 						
 					}
 				HOupdatecount++;
-				param->HOnoise = param->HOnoise / HOupdatecount;
-				param->HOcosine = param->HOcosine / HOupdatecount;
+				HOnoise = param->HOnoise / HOupdatecount;
+				HOcosine = param->HOcosine / HOupdatecount;
 					printf("%.2f", param->HOcosine );
 				}
 			}
+				param->HOnoise += HOnoise;
+				param->HOcosine += HOcosine;
 			
-			}
 			
-			if(param -> Record){
+			
+			
 				
 			if (  iteration % param ->RecordPeriod == param ->RecordPeriod -1)
 			{	
