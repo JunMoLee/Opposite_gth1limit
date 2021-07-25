@@ -1224,7 +1224,11 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				fstream read;
 				double IHcount = param ->RecordPeriod - param -> IHnoupdate;
 				double HOcount = param ->RecordPeriod - param -> HOnoupdate;
-				printf("[Recordidx : %d] IHnoise : %.2f, HOnoise: %.2f, IHcosine: %.2f, HOcosine: %.2f / " , recordidx,(IHcount==0?) 0:param->IHnoise *10000.0/IHcount , (HOcount==0?) 0:param->HOnoise*10000.0/HOcount,(IHcount==0?) 1: param->IHcosine/IHcount,(HOcount==0?)1: param->HOcosine/HOcount );
+				double m1=(IHcount==0)? 0:param->IHnoise *10000.0/IHcount ;
+				double	m2 = (HOcount==0)? 0:param->HOnoise *10000.0/HOcount;
+				double m3= (IHcount==0)? 1:param->IHcosine/IHcount;
+				double m4 = (HOcount==0)? 1: param->HOcosine/HOcount;
+				printf("[Recordidx : %d] IHnoise : %.2f, HOnoise: %.2f, IHcosine: %.2f, HOcosine: %.2f / " , recordidx, m1, m2, m3, m4 );
 				char str[1024];
 				sprintf(str, "txt_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.txt" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
 			 	read.open(str,fstream::app);
