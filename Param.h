@@ -64,8 +64,10 @@ public:
 	double Gth1;
 	double Gth2;
 	double ratio;
-	int Reference = 0;
-	int RefPeriod = 100;
+	int Reference;
+	int RefPeriod;
+	int Record;
+	int RecordPeriod;
 
 	/* Hardware parameters */
 	bool useHardwareInTrainingFF;   // Use hardware in the feed forward part of training or not (true: realistic hardware, false: ideal software)
