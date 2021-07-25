@@ -1194,7 +1194,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					}
 					else{
 				HOcosineunit += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
-						printf("%.2f", sqrt (multsum*multsum /(noisypulsesum * realpulsesum) ));
+						
 						
 					
 						
