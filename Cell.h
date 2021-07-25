@@ -148,7 +148,7 @@ public:
 	double noise =0;
 	double mult = 0;
 	double realpulse = 0;
-	double noisypule = 0;
+	double noisypulse = 0;
 
 	virtual double Read(double voltage) = 0;
 	virtual void Write(int iteration, double deltaWeightNormalized, double weight, double minWeight, double maxWeight) = 0;
