@@ -70,7 +70,7 @@ Param::Param() {
 	Record = 1;
 	RecordPeriod = 209;
 	
-	Gth1 = 1;
+	Gth1 = -1;
 	Gth2 = 9;
 
 	/* Hardware parameters */
@@ -95,9 +95,9 @@ Param::Param() {
 	processNode = 32;	// Technology node (nm)
 	clkFreq = 2e9;		// Clock frequency (Hz)
 
-	RefreshRate = 3;
+	RefreshRate = 2;
 	const int 
-	nur=3;
+	nur=2;
 	newUpdateRate = nur; // rate of new update algorithm implementation (per # of images)
 const int
 a=0;
