@@ -1133,11 +1133,11 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				double multsum = 0;
 				double noisesum =0;
 				for (int k = 0; k < param->nInput; k++) {
-					printf("%.3f", static_cast<AnalogNVM*>(arrayIH->cell[j][k])->realpulse);
-					realpulsesum = realpulsesum + static_cast<AnalogNVM*>(arrayIH->cell[j][k])->realpulse;
-					noisypulsesum  = noisypulsesum  + static_cast<AnalogNVM*>(arrayIH->cell[j][k])->noisypulse ;
-					multsum = multsum + static_cast<AnalogNVM*>(arrayIH->cell[j][k])->mult;
-					noisesum = noisesum + static_cast<AnalogNVM*>(arrayIH->cell[j][k])->noise;
+					// printf("%.3f", static_cast<RealDevice*>(arrayIH->cell[j][k])->realpulse);
+					realpulsesum = realpulsesum + static_cast<RealDevice*>(arrayIH->cell[j][k])->realpulse;
+					noisypulsesum  = noisypulsesum  + static_cast<RealDevice*>(arrayIH->cell[j][k])->noisypulse ;
+					multsum = multsum + static_cast<RealDevice*>(arrayIH->cell[j][k])->mult;
+					noisesum = noisesum + static_cast<RealDevice*>(arrayIH->cell[j][k])->noise;
 				}
 				
 				if (realpulsesum>0){
@@ -1166,10 +1166,10 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				double noisesum =0;
 				
 				for (int k = 0; k < param->nHide; k++) {
-					realpulsesum = realpulsesum + static_cast<AnalogNVM*>(arrayHO->cell[j][k])->realpulse;
-					noisypulsesum  = noisypulsesum  + static_cast<AnalogNVM*>(arrayHO->cell[j][k])->noisypulse ;
-					multsum = multsum + static_cast<AnalogNVM*>(arrayHO->cell[j][k])->mult;
-					noisesum = noisesum + static_cast<AnalogNVM*>(arrayHO->cell[j][k])->noise;
+					realpulsesum = realpulsesum + static_cast<RealDevice*>(arrayHO->cell[j][k])->realpulse;
+					noisypulsesum  = noisypulsesum  + static_cast<RealDevice*>(arrayHO->cell[j][k])->noisypulse ;
+					multsum = multsum + static_cast<RealDevice*>(arrayHO->cell[j][k])->mult;
+					noisesum = noisesum + static_cast<RealDevice*>(arrayHO->cell[j][k])->noise;
 					
 				}
 				
