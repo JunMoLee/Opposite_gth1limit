@@ -1188,7 +1188,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				HOcosineunit =HOcosineunit * HOupdatecount;
 				HOnoiseunit += noisesum;
 					if(noisypulsesum == 0){
-						HOcosine += 0;
+						HOcosineunit += 0;
 					}
 					else{
 				HOcosineunit += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
