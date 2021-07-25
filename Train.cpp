@@ -1150,9 +1150,10 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					}
 					else{
 				param->IHcosine += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
+						IHupdatecount++;
 					}
 					
-				IHupdatecount++;
+				
 				param->IHnoise =param->IHnoise / IHupdatecount;
 				param->IHcosine =param->IHcosine / IHupdatecount;
 				}
@@ -1182,8 +1183,9 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					}
 					else{
 				param->HOcosine += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
+						HOupdatecount++;
 					}
-				HOupdatecount++;
+				
 				param->HOnoise = param->HOnoise / HOupdatecount;
 				param->HOcosine = param->HOcosine / HOupdatecount;
 				}
