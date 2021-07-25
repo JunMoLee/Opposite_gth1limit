@@ -106,10 +106,6 @@ double Adagrad(double gradient, double learning_rate, double gradSquare, double 
 double RMSprop(double gradient, double learning_rate, double gradSquarePrev,double GAMA=0.5, double EPSILON=2E-1);
 double Adam(double gradient, double learning_rate, double momentumPreV, double velocityPrev, double BETA1=0.1, double BETA2=0.7, double EPSILON=2E-1);
 
-double IHnoise;
-double HOnoise;
-double IHcosine;
-double HOcosine;
 
 void Train(int iter, const int numTrain, const int epochs, char *optimization_type) {
 int numBatchReadSynapse;	    // # of read synapses in a batch read operation (decide later)
@@ -155,10 +151,10 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 						
 			if (  iteration == 0 )
 			{
-				IHnoise=0;
-				HOnoise=0;
-				IHcosine=0;
-				HOcosine =0;
+				param-> IHnoise=0;
+				param->HOnoise=0;
+				param->IHcosine=0;
+				param->HOcosine =0;
 				
 			}
 
@@ -1144,20 +1140,20 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				}
 				
 				if (realpulsesum>0){
-				IHnoise = IHnoise * IHupdatecount;
-				IHcosine = IHcosine * IHupdatecount;
-				IHnoise += noisesum;
+				param->IHnoise = param->IHnoise * IHupdatecount;
+				param->IHcosine = param->IHcosine * IHupdatecount;
+				param->IHnoise += noisesum;
 					
 					if(noisypulsesum == 0){
-						IHcosine += 0;
+						param->IHcosine += 0;
 					}
 					else{
-				IHcosine += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
+				param->IHcosine += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
 					}
 					
 				IHupdatecount++;
-				IHnoise =IHnoise / IHupdatecount;
-				IHcosine =IHcosine / IHupdatecount;
+				param->IHnoise =IHnoise / IHupdatecount;
+				param->IHcosine =IHcosine / IHupdatecount;
 				}
 			}
 			
@@ -1177,18 +1173,18 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				}
 				
 				if (realpulsesum>0){
-				HOnoise = HOnoise * HOupdatecount;
-				HOcosine = HOcosine * HOupdatecount;
-				HOnoise += noisesum;
+				param->HOnoise = param->HOnoise * HOupdatecount;
+				param->HOcosine = param->HOcosine * HOupdatecount;
+				param->HOnoise += noisesum;
 					if(noisypulsesum == 0){
-						HOcosine += 0;
+						param->HOcosine += 0;
 					}
 					else{
-				HOcosine += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
+				param->HOcosine += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
 					}
 				HOupdatecount++;
-				HOnoise = HOnoise / HOupdatecount;
-				HOcosine = HOcosine / HOupdatecount;
+				param->HOnoise = param->HOnoise / HOupdatecount;
+				param->HOcosine = param->HOcosine / HOupdatecount;
 				}
 			}
 			
@@ -1207,10 +1203,10 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 			 	read.open(str,fstream::app);
 			 	read <<IHnoise<<", "<<HOnoise<<endl;
 			 
-				IHnoise=0;
-				HOnoise=0;
-				HOcosine=0;
-				IHcosine=0;
+				param->IHnoise=0;
+				param->HOnoise=0;
+				param->HOcosine=0;
+				param->IHcosine=0;
 				
 		
 				
