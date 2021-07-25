@@ -210,6 +210,8 @@ public:
 	double paramBGn;
 	double paramBGnd;
 	double noise =0;
+	double mult = 0;
+	
 	RealDevice(int x, int y, double p, double  n);
 	double Read(double voltage);	// Return read current (A)
 	void Write(int iteration, double deltaWeightNormalized, double weight, double minWeight, double maxWeight);
