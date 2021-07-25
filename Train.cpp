@@ -1198,7 +1198,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 				int recordidx = iteration / param ->RecordPeriod;
 				fstream read;
-				printf("[Recordidx : %d] IHnoise : %.2f, HOnoise: %.2f, IHcosine: %.2f, HOcosine: %.2f / " , recordidx,param->IHnoise*1000000, param->HOnoise*1000000,param->IHcosine*1000000, param->HOcosine*1000000 );
+				printf("[Recordidx : %d] IHnoise : %.2f, HOnoise: %.2f, IHcosine: %.2f, HOcosine: %.2f / " , recordidx,param->IHnoise/ param ->RecordPeriod, param->HOnoise/ param ->RecordPeriod,param->IHcosine/ param ->RecordPeriod, param->HOcosine/ param ->RecordPeriod );
 				char str[1024];
 				sprintf(str, "txt_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.txt" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
 			 	read.open(str,fstream::app);
