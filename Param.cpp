@@ -133,7 +133,7 @@ int Gthlist [55][2];
 int idx = 0;
 
  for(int i=10;  i>=0 ; i--){
- 	for(int j=0; j<=i-1; j++ ){
+ 	for(int j=0; j<i; j++ ){
 		Gthlist[idx][0] = j;
 		Gthlist[idx][1] = i;
 		idx++;
