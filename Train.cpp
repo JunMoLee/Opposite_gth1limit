@@ -1121,17 +1121,18 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 			}
 				
 			}
-			
-
-			if(param -> Record){
 			double IHupdatecount =1;
-			double HOupdatecount =1;			
+			double HOupdatecount =1;
+			if(param -> Record){
+						
 			for (int j = 0; j < param->nHide; j++) {
 				
 				double realpulsesum = 0;
 				double noisypulsesum = 0;
 				double multsum = 0;
 				double noisesum =0;
+				
+				
 				for (int k = 0; k < param->nInput; k++) {
 					// printf("%.3f", static_cast<RealDevice*>(arrayIH->cell[j][k])->realpulse);
 					realpulsesum = realpulsesum + static_cast<RealDevice*>(arrayIH->cell[j][k])->realpulse;
@@ -1150,10 +1151,10 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					}
 					else{
 				param->IHcosine += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
-						IHupdatecount++;
+						
 					}
 					
-				
+				IHupdatecount++;
 				param->IHnoise =param->IHnoise / IHupdatecount;
 				param->IHcosine =param->IHcosine / IHupdatecount;
 				}
@@ -1165,6 +1166,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				double noisypulsesum = 0;
 				double multsum = 0;
 				double noisesum =0;
+				double HOupdatecount =0;
 				
 				for (int k = 0; k < param->nHide; k++) {
 					realpulsesum = realpulsesum + static_cast<RealDevice*>(arrayHO->cell[j][k])->realpulse;
@@ -1183,9 +1185,9 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					}
 					else{
 				param->HOcosine += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
-						HOupdatecount++;
+						
 					}
-				
+				HOupdatecount++;
 				param->HOnoise = param->HOnoise / HOupdatecount;
 				param->HOcosine = param->HOcosine / HOupdatecount;
 				}
