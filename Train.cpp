@@ -1133,7 +1133,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				double multsum = 0;
 				double noisesum =0;
 				for (int k = 0; k < param->nInput; k++) {
-					printf("%d", static_cast<AnalogNVM*>(arrayIH->cell[j][k])->realpulse)
+					printf("%d", static_cast<AnalogNVM*>(arrayIH->cell[j][k])->realpulse);
 					realpulsesum = realpulsesum + static_cast<AnalogNVM*>(arrayIH->cell[j][k])->realpulse;
 					noisypulsesum  = noisypulsesum  + static_cast<AnalogNVM*>(arrayIH->cell[j][k])->noisypulse ;
 					multsum = multsum + static_cast<AnalogNVM*>(arrayIH->cell[j][k])->mult;
