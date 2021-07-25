@@ -46,6 +46,10 @@
 #include "Array.h"
 #include "Mapping.h"
 #include "NeuroSim.h"
+#include <fstream>
+
+using namespace std;
+
 
 extern Param *param;
 
@@ -101,6 +105,7 @@ double RMSprop(double gradient, double learning_rate, double gradSquarePrev,doub
 double Adam(double gradient, double learning_rate, double momentumPreV, double velocityPrev, double BETA1=0.1, double BETA2=0.7, double EPSILON=2E-1);
 
 
+
 void Train(const int numTrain, const int epochs, char *optimization_type) {
 int numBatchReadSynapse;	    // # of read synapses in a batch read operation (decide later)
 int numBatchWriteSynapse;	// # of write synapses in a batch write operation (decide later)
@@ -114,6 +119,28 @@ double a2[param->nOutput];  // Net output of output layer [param->nOutput]
 
 double s1[param->nHide];    // Output delta from input layer to the hidden layer [param->nHide]
 double s2[param->nOutput];  // Output delta from hidden layer to the output layer [param->nOutput]
+double IHnoise;
+double HOnoise;
+		double NL_LTP_Gp = static_cast<RealDevice*>(arrayIH->cell[0][0])->NL_LTP_Gp;
+	        double NL_LTD_Gp = static_cast<RealDevice*>(arrayIH->cell[0][0])->NL_LTD_Gp;
+		double NL_LTP_Gn = static_cast<RealDevice*>(arrayIH->cell[0][0])->NL_LTP_Gn;
+	        double NL_LTD_Gn = static_cast<RealDevice*>(arrayIH->cell[0][0])->NL_LTD_Gn;
+		int kp = static_cast<RealDevice*>(arrayIH->cell[0][0])->maxNumLevelpLTP;
+		int kd = static_cast<RealDevice*>(arrayIH->cell[0][0])->maxNumLevelpLTD;
+		int knp = static_cast<RealDevice*>(arrayIH->cell[0][0])->maxNumLevelnLTP;
+		int knd = static_cast<RealDevice*>(arrayIH->cell[0][0])->maxNumLevelnLTD;
+		double pof = static_cast<RealDevice*>(arrayIH->cell[0][0])->pmaxConductance/static_cast<RealDevice*>(arrayIH->cell[0][0])->pminConductance;
+		double nof = static_cast<RealDevice*>(arrayIH->cell[0][0])->nmaxConductance/static_cast<RealDevice*>(arrayIH->cell[0][0])->nminConductance;
+	        double LA = param->alpha1;
+	        int reverseperiod = param->newUpdateRate;
+		int reverseupdate = param->ReverseUpdate;
+		int fullrefresh = param ->FullRefresh;
+		int refreshperiod = param -> RefreshRate;
+		double Gth1 = param -> Gth1;
+	  	double Gth2 = param -> Gth2;
+		double revlr = LA / param -> ratio ;
+		int refperiod = param->RefPeriod;
+		int Reference = param -> Reference;
 	
 	for (int t = 0; t < epochs; t++) {
 		
@@ -121,6 +148,14 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 		for (int batchSize = 0; batchSize < numTrain; batchSize++) {
 			
 			int iteration = t * numTrain + batchSize;
+						
+			if (  iteration == 0 )
+			{
+				IHnoise=0;
+				HOnoise=0;
+				
+			}
+
 
 			int i = rand() % param->numMnistTrainImages;  // Randomize sample
                         //int i = 1;       // use this value for debug
@@ -543,7 +578,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 							if (AnalogNVM *temp = dynamic_cast<AnalogNVM*>(arrayIH->cell[jj][k])) {	// Analog eNVM
 					
 								arrayIH->WriteCell(jj, k, deltaWeight1[jj][k], weight1[jj][k], param->maxWeight, param->minWeight, true, iteration);
-								
+								IHnoise = IHnoise + arrayIH->cell[jj][k])->noise / param ->RecordPeriod;
 								
 								
 							    weight1[jj][k] = arrayIH->ConductanceToWeight(jj, k, param->maxWeight, param->minWeight); 
@@ -858,7 +893,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 									
                                                                 arrayHO->WriteCell(jj, k, deltaWeight2[jj][k], weight2[jj][k], param->maxWeight, param->minWeight, true , iteration);
 								
-								
+								HOnoise = HOnoise + arrayHO->cell[jj][k])->noise / param ->RecordPeriod;
 						                weight2[jj][k] = arrayHO->ConductanceToWeight(jj, k, param->maxWeight, param->minWeight);
 								weightChangeBatch = weightChangeBatch || static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->numPulse;
 								
@@ -1096,6 +1131,19 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 			} */
 			
 		       /// new conductance saturation management (end) ///
+			
+			if (  iteration % param - >RecordPeriod == param - >RecordPeriod -1)
+			{	fstream read;
+				printf("IHnoise : %d, HOnoise: %d", IHnoise, HOnoise)
+				char str[1024];
+				sprintf(str, "txt_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.txt" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
+			 	read.open(str,fstream::app);
+			 	read <<IHnoise<<", "<<HOnoise<<endl;
+			 
+				IHnoise=0;
+				HOnoise=0;
+				
+			}
 			
 			
 		}
