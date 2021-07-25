@@ -40,7 +40,9 @@
 #include <iostream>
 #include <vector>
 #include <random>
+#include <stdlib.h>
 #include <string>
+#include <sstream>
 #include "formula.h"
 #include "Param.h"
 #include "Array.h"
@@ -1134,10 +1136,10 @@ double HOcosine;
 				double multsum = 0;
 				double noisesum =0;
 				for (int k = 0; k < param->nInput; k++) {
-					realpulsesum = realpulsesum + arrayIH->cell[j][k])->realpulsesum;
-					noisypulsesum  = noisypulsesum  + arrayIH->cell[j][k])->noisypulsesum ;
-					multsum = multsum + arrayIH->cell[j][k])->multsum;
-					noisesum = noisesum + arrayIH->cell[j][k])->noisesum;
+					realpulsesum = realpulsesum + arrayIH->cell[j][k]->realpulsesum;
+					noisypulsesum  = noisypulsesum  + arrayIH->cell[j][k]->noisypulsesum ;
+					multsum = multsum + arrayIH->cell[j][k]->multsum;
+					noisesum = noisesum + arrayIH->cell[j][k]->noisesum;
 				}
 				IHnoise += noisesum;
 				IHcosine += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
@@ -1150,10 +1152,10 @@ double HOcosine;
 				double noisesum =0;
 				
 				for (int k = 0; k < param->nHide; k++) {
-					realpulsesum = realpulsesum + arrayHO->cell[j][k])->realpulsesum;
-					noisypulsesum  = noisypulsesum  + arrayHO->cell[j][k])->noisypulsesum ;
-					multsum = multsum + arrayHO->cell[j][k])->multsum;
-					noisesum = noisesum + arrayHO->cell[j][k])->noisesum;
+					realpulsesum = realpulsesum + arrayHO->cell[j][k]->realpulsesum;
+					noisypulsesum  = noisypulsesum  + arrayHO->cell[j][k]->noisypulsesum ;
+					multsum = multsum + arrayHO->cell[j][k]->multsum;
+					noisesum = noisesum + arrayHO->cell[j][k]->noisesum;
 					
 				}
 				HOnoise += noisesum;
@@ -1164,12 +1166,12 @@ double HOcosine;
 			
 			if(param -> Record){
 				
-			if (  iteration % param - >RecordPeriod == param - >RecordPeriod -1)
+			if (  iteration % param ->RecordPeriod == param ->RecordPeriod -1)
 			{	
 
 				
 				fstream read;
-				printf("IHnoise : %d, HOnoise: %d", IHnoise, HOnoise)
+				printf("IHnoise : %d, HOnoise: %d", IHnoise, HOnoise);
 				char str[1024];
 				sprintf(str, "txt_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.txt" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
 			 	read.open(str,fstream::app);
@@ -1178,7 +1180,7 @@ double HOcosine;
 				IHnoise=0;
 				HOnoise=0;
 				HOcosine=0;
-				IHcosuine=0;
+				IHcosine=0;
 				
 		
 				
