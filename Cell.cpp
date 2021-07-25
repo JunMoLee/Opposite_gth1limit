@@ -43,6 +43,7 @@
 #include "Array.h"
 #include "Cell.h"
 #include "Param.h"
+using namespace std;
 
 extern Param *param;
 
@@ -441,7 +442,12 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	double pcondrange = pmaxConductance - pminConductance;
 	double ncondrange = nmaxConductance - nminConductance;
 	noise = 0;
+	noisypulse = 0;
+	realpulse =0;
+	mult = 0;
+	
 	int epoch = int( iteration/8000);
+	
 	if (param -> Reference == 0)
 	{refGp = conductanceNewGp;
 	 refGn= conductanceNewGn;
@@ -466,8 +472,12 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 		GpGnCell = false;
 		deltaWeightNormalized = -totalcondrange/ncondrange*deltaWeightNormalized/(maxWeight-minWeight);
 		deltaWeightNormalized = truncate(deltaWeightNormalized, maxNumLevelnLTD);
+		numPulse = deltaWeightNormalized * maxNumLevelnLTD;
+		realpulse = - numPulse/maxNumLevelnLTD  ;
+
 		
-		numPulse = 0;
+		
+		numPulse = -deltaWeightNormalized * maxNumLevelnLTD;
 				
 			}
 			
@@ -483,13 +493,18 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 		GpGnCell = false;
 		deltaWeightNormalized = totalcondrange/ncondrange*deltaWeightNormalized/(maxWeight-minWeight)/param->ratio;
 		deltaWeightNormalized = truncate(deltaWeightNormalized, maxNumLevelnLTD);
+		
+
+			
 		numPulse = deltaWeightNormalized * maxNumLevelnLTD;
+			realpulse = numPulse/maxNumLevelnLTD  ;
 		if (numPulse > maxNumLevelnLTD) {
 			numPulse = maxNumLevelnLTD;
 			}
 		if (nonlinearWrite) {
 		        xPulse = InvNonlinearWeight(conductanceGn, maxNumLevelnLTD, paramAGnd, paramBGnd, nminConductance);
 			conductanceNewGn = NonlinearWeight(xPulse-numPulse, maxNumLevelnLTD, paramAGnd, paramBGnd, nminConductance);
+
 			} 
 			else {
 			xPulse = (conductanceGn- nminConductance) / (nmaxConductance - nminConductance) * maxNumLevelnLTD;
@@ -506,6 +521,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 		deltaWeightNormalized = totalcondrange/pcondrange*deltaWeightNormalized/(maxWeight-minWeight);
 		deltaWeightNormalized = truncate(deltaWeightNormalized, maxNumLevelpLTP);
 		numPulse = deltaWeightNormalized * maxNumLevelpLTP;
+			realpulse = numPulse/ maxNumLevelpLTP ;
 		if (numPulse > maxNumLevelpLTP) {
 			numPulse = maxNumLevelpLTP;
 		}
@@ -527,7 +543,8 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 						GpGnCell = true;
 						deltaWeightNormalized = totalcondrange/pcondrange*deltaWeightNormalized/(maxWeight-minWeight);
 						deltaWeightNormalized = truncate(deltaWeightNormalized, maxNumLevelpLTD);
-						numPulse = 0;
+						numPulse = deltaWeightNormalized * maxNumLevelpLTD;
+				realpulse = numPulse/ maxNumLevelpLTD;
 				
 		
 			}
@@ -543,6 +560,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 				deltaWeightNormalized = -totalcondrange/pcondrange*deltaWeightNormalized/(maxWeight-minWeight)/param->ratio;
 				deltaWeightNormalized = truncate(deltaWeightNormalized, maxNumLevelpLTD);
 				numPulse = deltaWeightNormalized * maxNumLevelpLTD;
+				realpulse = - numPulse/ maxNumLevelpLTD  ;
 				if (numPulse > maxNumLevelpLTD) {
 					numPulse = maxNumLevelpLTD;
 				}
@@ -563,6 +581,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 			deltaWeightNormalized = -totalcondrange/ncondrange*deltaWeightNormalized/(maxWeight-minWeight);
 			deltaWeightNormalized = truncate(deltaWeightNormalized, maxNumLevelnLTP);
 			numPulse = deltaWeightNormalized * maxNumLevelnLTP;
+			realpulse = - numPulse/maxNumLevelnLTP;
 			if (numPulse > maxNumLevelnLTP) {
 				numPulse = maxNumLevelnLTP;
 			} 
@@ -581,6 +600,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	}
 
 	/* Cycle-to-cycle variation */
+	/*
 	extern std::mt19937 gen;
 	if (GpGnCell == true) {
 		if (sigmaCtoC && numPulse != 0) {
@@ -592,6 +612,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 			conductanceNewGn += (*gaussian_dist3)(gen) * sqrt(abs(numPulse));	// Absolute variation
 		}
 	}
+	*/
 	
 	if (conductanceNewGp > pmaxConductance) {
 		conductanceNewGp = pmaxConductance;
@@ -642,6 +663,19 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	conductancePrev = conductance;
 	conductanceGp = conductanceNewGp;
 	conductanceGn = conductanceNewGn;
+	
+	if( (conductanceGp - conductanceNewGp)*(conductanceGp - conductanceNewGp) > (conductanceGn - conductanceNewGn) * (conductanceGn - conductanceNewGn))
+	{
+	noisypulse = (conductanceGp - conductanceNewGp)*(conductanceGp - conductanceNewGp);
+	mult = (conductanceNewGp - conductanceGp ) * realpulse;
+	}
+	
+	else
+	{
+	noisypulse = (conductanceGn - conductanceNewGn)*(conductanceGn - conductanceNewGn);
+	mult = (conductanceNewGn - conductanceGn) * realpulse;
+	}
+	realpulse = realpulse * realpulse;
 	conductanceNew = conductanceNewGp - conductanceNewGn + refConductance;
 	conductance = conductanceNew;
 }
