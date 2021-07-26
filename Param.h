@@ -68,6 +68,8 @@ public:
 	int RefPeriod;
 	int Record;
 	int RecordPeriod;
+	int WeightTrack;
+	int WeightTrackPeriod;
 	double IHnoise =0;
 	double IHcosine=0;
 	double HOnoise=0;
