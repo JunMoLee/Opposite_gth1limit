@@ -215,6 +215,7 @@ public:
 	double mult = 0;
 	double realpulse = 0;
 	double noisypulse = 0;
+	int Gth1cross = 0;
 
 	
 	RealDevice(int x, int y, double p, double  n);
