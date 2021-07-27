@@ -1289,7 +1289,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 						
 							for (int j = 0; j < param->nOutput; j++) {
 					for (int k = 0; k < param->nHide; k++) {
-						Gth1crossIH += static_cast<RealDevice*>(arrayHO->cell[j][k])->Gth1cross;
+						Gth1crossHO += static_cast<RealDevice*>(arrayHO->cell[j][k])->Gth1cross;
 						static_cast<RealDevice*>(arrayHO->cell[j][k])->Gth1cross = 0;
 						if(weight1[j][k]<=0)
 						{
