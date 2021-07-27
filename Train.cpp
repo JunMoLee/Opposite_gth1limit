@@ -1256,9 +1256,13 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 						if(param -> WeightTrack){
 				if(iteration % param -> WeightTrackPeriod == param -> WeightTrackPeriod -1){
 				double averageGpIH=0;
+				double count1=0;
 				double averageGnIH=0;
+				double count2=0;
 				double averageGpHO=0;
+				double count3=0;
 				double averageGnHO=0;
+				double count4=0;
 				double Gth1crossIH=0;
 				double Gth1crossHO=0;
 					int recordidx = iteration/param -> WeightTrackPeriod;
@@ -1269,12 +1273,14 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 						if(weight1[j][k]<=0)
 						{
 						averageGpIH += static_cast<RealDevice*>(arrayIH->cell[j][k])->conductanceGp;
+						count1++;
 						
 						}
 						
 						else 
 						{
 						averageGnIH += static_cast<RealDevice*>(arrayIH->cell[j][k])->conductanceGn;
+							count2++;
 						}
 						
 					
@@ -1288,15 +1294,17 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 						if(weight1[j][k]<=0)
 						{
 						averageGpHO += static_cast<RealDevice*>(arrayHO->cell[j][k])->conductanceGp;
+							count3++;
 						}
 						
 						else 
 						{
 						averageGnHO += static_cast<RealDevice*>(arrayHO->cell[j][k])->conductanceGn;
+							count4++;
 						}
 					}
 							}
-				printf("[Recordidx : %d] IHGp : %.2f, IHGn: %.2f, HOGp: %.2f, HOGn: %.2f / " , recordidx, averageGpIH, averageGnIH, averageGpHO, averageGnHO );
+				printf("[Recordidx : %d] IHGp : %.2f, IHGn: %.2f, HOGp: %.2f, HOGn: %.2f / " , recordidx, averageGpIH/count1, averageGnIH/count2, averageGpHO/count3, averageGnHO/count4 );
 				printf("[Recordidx : %d] IHcross : %.2f, HOcross: %.2f / " , recordidx,Gth1crossIH, Gth1crossHO);
 				}
 				
