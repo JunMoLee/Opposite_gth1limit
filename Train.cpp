@@ -1089,47 +1089,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				}
 			}
 			
-			if(param -> WeightTrack){
-				if(iteration % param -> WeightTrackPeriod == param -> WeightTrackPeriod -1){
-				double averageGpIH=0;
-				double averageGnIH=0;
-				double averageGpHO=0;
-				double averageGnHO=0;
-					int recordidx = iteration/param -> WeightTrackPeriod;
-						for (int j = 0; j < param->nHide; j++) {
-					for (int k = 0; k < param->nInput; k++) {
-						if(weight1[j][k]<=0)
-						{
-						averageGpIH += static_cast<RealDevice*>(arrayIH->cell[j][k])->conductancGp;
-						}
-						
-						else 
-						{
-						averageGnIH += static_cast<RealDevice*>(arrayIH->cell[j][k])->conductancGn;
-						}
-						
-					
-					}
-						}
-						
-							for (int j = 0; j < param->nOutput; j++) {
-					for (int k = 0; k < param->nHide; k++) {
-						if(weight1[j][k]<=0)
-						{
-						averageGpHO += static_cast<RealDevice*>(arrayHO->cell[j][k])->conductancGp;
-						}
-						
-						else 
-						{
-						averageGnHO += static_cast<RealDevice*>(arrayHO->cell[j][k])->conductancGn;
-						}
-					}
-							}
-				printf("[Recordidx : %d] IHGp : %.2f, IHGn: %.2f, HOGp: %.2f, HOGn: %.2f / " , recordidx, averageGpIH, averageGnIH, averageGpHO, averageGnHO );
-				}
-				
-				
-			}
+
 			/// conductance saturation management: Full-Reset /// 
 			if(param -> FullRefresh){
 				
@@ -1290,7 +1250,58 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 
 			}
 				
-			}			
+			}	
+			
+			
+						if(param -> WeightTrack){
+				if(iteration % param -> WeightTrackPeriod == param -> WeightTrackPeriod -1){
+				double averageGpIH=0;
+				double averageGnIH=0;
+				double averageGpHO=0;
+				double averageGnHO=0;
+				double Gth1crossIH=0;
+				double Gth1crossHO=0;
+					int recordidx = iteration/param -> WeightTrackPeriod;
+						for (int j = 0; j < param->nHide; j++) {
+					for (int k = 0; k < param->nInput; k++) {
+						Gth1crossIH += static_cast<RealDevice*>(arrayIH->cell[j][k])->Gth1cross;
+						static_cast<RealDevice*>(arrayIH->cell[j][k])->Gth1cross = 0;
+						if(weight1[j][k]<=0)
+						{
+						averageGpIH += static_cast<RealDevice*>(arrayIH->cell[j][k])->conductancGp;
+						
+						}
+						
+						else 
+						{
+						averageGnIH += static_cast<RealDevice*>(arrayIH->cell[j][k])->conductancGn;
+						}
+						
+					
+					}
+						}
+						
+							for (int j = 0; j < param->nOutput; j++) {
+					for (int k = 0; k < param->nHide; k++) {
+						Gth1crossIH += static_cast<RealDevice*>(arrayHO->cell[j][k])->Gth1cross;
+						static_cast<RealDevice*>(arrayHO->cell[j][k])->Gth1cross = 0;
+						if(weight1[j][k]<=0)
+						{
+						averageGpHO += static_cast<RealDevice*>(arrayHO->cell[j][k])->conductancGp;
+						}
+						
+						else 
+						{
+						averageGnHO += static_cast<RealDevice*>(arrayHO->cell[j][k])->conductancGn;
+						}
+					}
+							}
+				printf("[Recordidx : %d] IHGp : %.2f, IHGn: %.2f, HOGp: %.2f, HOGn: %.2f / " , recordidx, averageGpIH, averageGnIH, averageGpHO, averageGnHO );
+				printf("[Recordidx : %d] IHcross : %.2f, HOcross: %.2f / " , recordidx,Gth1crossIH, Gth1crossHO);
+				}
+				
+				
+			}
 			
 			/// conductance saturation management: Full-Reset (end) /// 
 			
