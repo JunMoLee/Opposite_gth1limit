@@ -474,7 +474,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 
 		
 		
-		numPulse = -deltaWeightNormalized * maxNumLevelnLTD;
+		numPulse =0;
 				
 			}
 			
@@ -542,7 +542,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 						deltaWeightNormalized = truncate(deltaWeightNormalized, maxNumLevelpLTD);
 						numPulse = deltaWeightNormalized * maxNumLevelpLTD;
 				realpulse = numPulse *1.00/ maxNumLevelpLTD*10.0;
-				
+				numPulse =0;
 		
 			}
 			
