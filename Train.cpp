@@ -1307,7 +1307,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				printf("[Recordidx : %d] IHGp : %.2f, IHGn: %.2f, HOGp: %.2f, HOGn: %.2f / " , recordidx, averageGpIH/count1, averageGnIH/count2, averageGpHO/count3, averageGnHO/count4 );
 				printf("[Recordidx : %d] IHcross : %.2f, HOcross: %.2f / " , recordidx,Gth1crossIH, Gth1crossHO);
 				char str[1024];
-				sprintf(str, "crossover_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.txt" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
+				sprintf(str, "crossover_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d_%d%d.txt" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
 			 	read.open(str,fstream::app);
 			 	read <<epoch<<", "<<recordidx<<", "<<param -> WeightTrackPeriod<<", "<<param->Gth1crossIH<<", "<<Gth1crossHO<<endl;
 				}
