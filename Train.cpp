@@ -1130,7 +1130,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 			double HOnoiseunit = 0;
 			double IHcosineunit = 0;
 			double HOcosineunit  = 0;
-						
+				int epoch = int(iteration/8000)+1;		
 			for (int j = 0; j < param->nHide; j++) {
 				
 				double realpulsesum = 0;
@@ -1254,7 +1254,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 			
 			
 						if(param -> WeightTrack){
-							epoch = int(iteration/8000);
+							int epoch = int(iteration/8000)+1;
 				if(iteration % param -> WeightTrackPeriod == param -> WeightTrackPeriod -1){
 				double averageGpIH=0;
 				double count1=0;
