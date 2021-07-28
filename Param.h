@@ -70,6 +70,7 @@ public:
 	int RecordPeriod;
 	int WeightTrack;
 	int WeightTrackPeriod;
+	int c2cvariation;
 	double IHnoise =0;
 	double IHcosine=0;
 	double HOnoise=0;
