@@ -145,7 +145,7 @@ int idx = 0;
 	}
  }
 			
-Gth1 = -1; // Gthlist[gths][0];
+Gth1 = Gthlist[gths][0];
 Gth2 = Gthlist[gths][1]; 
 	
 }
