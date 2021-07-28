@@ -381,8 +381,12 @@ RealDevice::RealDevice(int x, int y, double p, double n) {
 	paramBGnd= (nmaxConductance - nminConductance) / (1 - exp(-maxNumLevelnLTD/paramAGnd));;
 	
 	/* Cycle-to-cycle weight update variation */
+	if(param->c2cvariation){
 	sigmaCtoC = 0.015* (maxConductance - minConductance);	// Sigma of cycle-to-cycle weight update vairation: defined as the percentage of conductance range
+	}
+	else{
 	sigmaCtoC = 0;
+	}
 	gaussian_dist3 = new std::normal_distribution<double>(0, sigmaCtoC);    // Set up mean and stddev for cycle-to-cycle weight update vairation
 
 	/* Conductance range variation */
