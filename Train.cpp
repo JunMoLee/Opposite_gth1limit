@@ -1231,9 +1231,9 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				double m4 = (HOcount==0)? 1: param->HOcosine/HOcount;
 				printf("[Recordidx : %d] IHnoise : %.2f, HOnoise: %.2f, IHcosine: %.2f, HOcosine: %.2f / " , recordidx, m1, m2, m3, m4 );
 				char str[1024];
-				sprintf(str, "txt_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.txt" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
+				sprintf(str, "noise_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.txt" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
 			 	read.open(str,fstream::app);
-			 	read <<param->IHnoise<<", "<<param->HOnoise<<", "<<param->IHcosine<<", "<<param->HOcosine<<endl;
+			 	read <<epoch<<", "<<recordidx<<", "<<param->IHnoise<<", "<<param->HOnoise<<", "<<param->IHcosine<<", "<<param->HOcosine<<endl;
 			 
 				param->IHnoise=0;
 				param->HOnoise=0;
@@ -1306,6 +1306,10 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 							}
 				printf("[Recordidx : %d] IHGp : %.2f, IHGn: %.2f, HOGp: %.2f, HOGn: %.2f / " , recordidx, averageGpIH/count1, averageGnIH/count2, averageGpHO/count3, averageGnHO/count4 );
 				printf("[Recordidx : %d] IHcross : %.2f, HOcross: %.2f / " , recordidx,Gth1crossIH, Gth1crossHO);
+				char str[1024];
+				sprintf(str, "crossover_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.txt" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
+			 	read.open(str,fstream::app);
+			 	read <<epoch<<", "<<recordidx<<", "<<Gth1crossIH<<", "<<Gth1crossHO<<endl;
 				}
 				
 				
