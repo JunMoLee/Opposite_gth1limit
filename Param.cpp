@@ -71,6 +71,7 @@ Param::Param() {
 	RecordPeriod = 209;
 	WeightTrack = 1;
 	WeightTrackPeriod=100;
+	c2cvariation=0;
 	
 	Gth1 = -1;
 	Gth2 = 9;
