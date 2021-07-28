@@ -1233,7 +1233,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				char str[1024];
 				sprintf(str, "noise_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.txt" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
 			 	read.open(str,fstream::app);
-			 	read <<epoch<<", "<<recordidx<<", "<<param->IHnoise<<", "<<param->HOnoise<<", "<<param->IHcosine<<", "<<param->HOcosine<<endl;
+			 	read <<epoch<<", "<<recordidx<<", "<<param ->RecordPeriod<<", "<<param->IHnoise<<", "<<param->HOnoise<<", "<<param->IHcosine<<", "<<param->HOcosine<<endl;
 			 
 				param->IHnoise=0;
 				param->HOnoise=0;
@@ -1309,7 +1309,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				char str[1024];
 				sprintf(str, "crossover_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.txt" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
 			 	read.open(str,fstream::app);
-			 	read <<epoch<<", "<<recordidx<<", "<<Gth1crossIH<<", "<<Gth1crossHO<<endl;
+			 	read <<epoch<<", "<<recordidx<<", "<<param -> WeightTrackPeriod<<", "<<param->Gth1crossIH<<", "<<Gth1crossHO<<endl;
 				}
 				
 				
