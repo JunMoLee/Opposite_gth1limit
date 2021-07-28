@@ -205,8 +205,13 @@ void Array::WriteCell(int x, int y, double deltaWeight, double weight, double ma
 		      
             // ? should add "+minConductance"?
 			//deltaWeight = 2 * deltaWeight;
+		                                double sigmaCtoC = 0.015* 10;   // Sigma of cycle-to-cycle weight update vairation: defined as the percentage of conductance range
+                        std::normal_distribution<double> *gaussian_dist3;
+                                                gaussian_dist3 = new std::normal_distribution<double>(0, sigmaCtoC);    // Set up mean and stddev for cycle-to-cycle weight update vairation
+                                         std::mt19937 gen;
+                                         double numPulse = truncate(deltaWeight, 100);
 			if (deltaWeight > 0) {
-			conductanceGp += deltaWeight * (pmaxConductance - pminConductance);
+			conductanceGp += deltaWeight * (pmaxConductance - pminConductance)+ (*gaussian_dist3)(gen)*sqrt(abs(numPulse));
 				
 				if (conductanceGp > pmaxConductance)
 				{
@@ -219,7 +224,7 @@ void Array::WriteCell(int x, int y, double deltaWeight, double weight, double ma
 			}
 			else {
 				
-			conductanceGn -= deltaWeight * (nmaxConductance - nminConductance);
+			conductanceGn -= deltaWeight * (nmaxConductance - nminConductance)+ (*gaussian_dist3)(gen)*sqrt(abs(numPulse));
 				
 				if (conductanceGn > nmaxConductance)
 				{
