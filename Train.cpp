@@ -1155,7 +1155,13 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					double k3 =static_cast<RealDevice*>(arrayIH->cell[j][k])->negpulsecount;
 					double k4 =static_cast<RealDevice*>(arrayIH->cell[j][k])->negpulsesum;
 					if(k1 && k3)
-					{pospulsesumtotal += abs(k2/k1-k4/k3);
+					{ if (k1>k3)
+					{pospulsesumtotal += k2/k1-k4/k3;
+					
+					 else if (k3>k1)
+						// negpulsesumtotal += (k4-k2) / (k4 - k1 * (k4/k3));
+						
+					pospulsesumtotal +=k4/k3-k2/k1;
 					pospulsecounttotal += 1;
 					}
 				}
@@ -1203,7 +1209,13 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					double k3 =static_cast<RealDevice*>(arrayHO->cell[j][k])->negpulsecount;
 					double k4 =static_cast<RealDevice*>(arrayHO->cell[j][k])->negpulsesum;
 					if(k1 && k3)
-					{negpulsesumtotal += abs(k2/k1-k4/k3);
+					{ if (k1>k3)
+					{negpulsesumtotal += k2/k1-k4/k3;
+					
+					 else if (k3>k1)
+						// negpulsesumtotal += (k4-k2) / (k4 - k1 * (k4/k3));
+						
+					negpulsesumtotal +=k4/k3-k2/k1;
 					negpulsecounttotal += 1;
 					}
 					
