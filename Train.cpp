@@ -1242,6 +1242,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				double m1=(IHcount==0)? 0:param->IHnoise *10000.0/IHcount ;
 				double	m2 = (HOcount==0)? 0:param->HOnoise *10000.0/HOcount;
 				double m3= pospulsesumtotal / pospulsecounttotal;//(IHcount==0)? 1:param->IHcosine/IHcount;
+				printf("%.2f, %.2f", pospulsesumtotal, pospulsecounttotal);
 				double m4 =negpulsesumtotal / negpulsecounttotal;//(HOcount==0)? 1: param->HOcosine/HOcount;
 				printf("[Recordidx : %d] IHnoise : %.2f, HOnoise: %.2f, effectivepospulse: %.2f, effectivenegpulse: %.2f / " , recordidx, m1, m2, m3, m4 );
 				char str[1024];
