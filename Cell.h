@@ -216,6 +216,10 @@ public:
 	double realpulse = 0;
 	double noisypulse = 0;
 	int Gth1cross = 0;
+	double pospulsecount=0;
+	double negpulsecount=0;
+	double pospulsesum=0;
+	double negpulsesum=0;
 
 	
 	RealDevice(int x, int y, double p, double  n);
