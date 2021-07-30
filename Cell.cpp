@@ -503,9 +503,10 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 			numPulse = maxNumLevelnLTD;
 			}
 		if (nonlinearWrite) {
+			if(numPulse !=0){
 		        xPulse = InvNonlinearWeight(conductanceGn, maxNumLevelnLTD, paramAGnd, paramBGnd, nminConductance);
 			conductanceNewGn = NonlinearWeight(xPulse-numPulse, maxNumLevelnLTD, paramAGnd, paramBGnd, nminConductance);
-
+			}
 			} 
 			else {
 			xPulse = (conductanceGn- nminConductance) / (nmaxConductance - nminConductance) * maxNumLevelnLTD;
@@ -527,8 +528,10 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 			numPulse = maxNumLevelpLTP;
 		}
 		if (nonlinearWrite) {
+			if(numPulse !=0){
 			xPulse = InvNonlinearWeight(conductanceGp, maxNumLevelpLTP, paramAGp, paramBGp, pminConductance);
 			conductanceNewGp = NonlinearWeight(xPulse+numPulse, maxNumLevelpLTP, paramAGp, paramBGp, pminConductance);
+			}
 		} else {
 			xPulse = (conductanceGp - pminConductance) / (pmaxConductance - pminConductance) * maxNumLevelpLTP;
 			conductanceNewGp = (xPulse+numPulse) / maxNumLevelpLTP * (pmaxConductance - pminConductance) + pminConductance;
@@ -537,7 +540,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 		}
 		
 
-	} else {	// LTD weight update
+	} else if (deltaWeightNormalized < 0) {	// LTD weight update
 		
 		if(param->ReverseUpdate && (iteration % param->newUpdateRate == param->newUpdateRate-1)){
 			if(refGn < param->Gth1){
@@ -566,8 +569,10 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 					numPulse = maxNumLevelpLTD;
 				}
 				if (nonlinearWrite) {
+					if(numPulse !=0){
 		  		      xPulse = InvNonlinearWeight(conductanceGp, maxNumLevelpLTD, paramAGpd, paramBGpd, pminConductance);
 					conductanceNewGp = NonlinearWeight(xPulse-numPulse, maxNumLevelpLTP, paramAGpd, paramBGpd, pminConductance);
+					}
 				} else {
 					xPulse = (conductanceGp-pminConductance) / (pmaxConductance - pminConductance) * maxNumLevelpLTD;
 					conductanceNewGp = (xPulse - numPulse) / maxNumLevelpLTD * (pmaxConductance - pminConductance) + pminConductance;
@@ -587,8 +592,10 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 				numPulse = maxNumLevelnLTP;
 			} 
 			if (nonlinearWrite){
+				if(numPulse !=0){
 		       		xPulse = InvNonlinearWeight(conductanceGn, maxNumLevelnLTP, paramAGn, paramBGn, nminConductance);
 				conductanceNewGn = NonlinearWeight(xPulse+numPulse, maxNumLevelnLTP, paramAGn, paramBGn, nminConductance);
+				}
 			} 
 			else {
 			xPulse = (conductanceGn- nminConductance) / (nmaxConductance - nminConductance) * maxNumLevelnLTP;
@@ -670,10 +677,15 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	if ( (conductanceGpPrev<param->Gth1 && param->Gth1< conductanceNewGp) || (conductanceGnPrev<param->Gth1 && param->Gth1< conductanceNewGn) )
 	    Gth1cross++;
 	
+
+	
 	if( (conductanceGpPrev - conductanceNewGp)*(conductanceGpPrev - conductanceNewGp) > (conductanceGnPrev - conductanceNewGn) * (conductanceGnPrev - conductanceNewGn))
 	{
 	double m1 = ( conductanceNewGp - conductanceGpPrev );
 	double m2 = realpulse;
+	if (deltaWeightNormalized > 0) {pospulsecount += realpulse; pospulsesum += m1;}
+	else if (deltaWeightNormalized < 0) {negpulsecount += realpulse; negpulsesum += -m1;}
+		
 	noisypulse = m1*m1;
 	mult = m1 * m2 ;
 	noise = ( m1- m2) *   ( m1- m2) ;
@@ -684,6 +696,8 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 		
 	double m1 = -( conductanceNewGn - conductanceGnPrev );
 	double m2 = realpulse;
+	if (deltaWeightNormalized > 0) {pospulsecount += realpulse; pospulsesum += -m1;}
+	else if (deltaWeightNormalized < 0) {negpulsecount += realpulse; negpulsesum += m1;}
 	noisypulse = m1*m1;
 	mult = m1 * m2 ;
 	noise = ( m1- m2) *   ( m1- m2) ;
