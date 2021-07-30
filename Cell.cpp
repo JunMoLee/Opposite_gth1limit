@@ -445,6 +445,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	double totalcondrange = pmaxConductance + nmaxConductance - pminConductance - nminConductance;
 	double pcondrange = pmaxConductance - pminConductance;
 	double ncondrange = nmaxConductance - nminConductance;
+	double posneg=0;
 
 	
 	int epoch = int( iteration/8000);
@@ -466,7 +467,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	if (deltaWeightNormalized > 0) {	// LTP weight update
 		
 		
-		
+		posneg=1;
 		if(param->ReverseUpdate && (iteration % param->newUpdateRate == param->newUpdateRate-1)){
 		if(refGp < param->Gth1)
 		{
@@ -518,7 +519,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 		
 		else{
 			
-
+		
 		GpGnCell = true;
 		deltaWeightNormalized = totalcondrange/pcondrange*deltaWeightNormalized/(maxWeight-minWeight);
 		deltaWeightNormalized = truncate(deltaWeightNormalized, maxNumLevelpLTP);
@@ -541,7 +542,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 		
 
 	} else if (deltaWeightNormalized < 0) {	// LTD weight update
-		
+		posneg=-1;
 		if(param->ReverseUpdate && (iteration % param->newUpdateRate == param->newUpdateRate-1)){
 			if(refGn < param->Gth1){
 						GpGnCell = true;
@@ -683,8 +684,8 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	{
 	double m1 = ( conductanceNewGp - conductanceGpPrev );
 	double m2 = realpulse;
-	if (deltaWeightNormalized > 0) {pospulsecount += realpulse; pospulsesum += m1;}
-	else if (deltaWeightNormalized < 0) {negpulsecount += realpulse; negpulsesum += -m1;}
+	if (posneg==1) {pospulsecount += realpulse; pospulsesum += m1;}
+	else if (posneg==-1) {negpulsecount += realpulse; negpulsesum += -m1;}
 		
 	noisypulse = m1*m1;
 	mult = m1 * m2 ;
@@ -696,8 +697,8 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 		
 	double m1 = -( conductanceNewGn - conductanceGnPrev );
 	double m2 = realpulse;
-	if (deltaWeightNormalized > 0) {pospulsecount += realpulse; pospulsesum += -m1;}
-	else if (deltaWeightNormalized < 0) {negpulsecount += realpulse; negpulsesum += m1;}
+	if (posneg==1) {pospulsecount += realpulse; pospulsesum += -m1;}
+	else if (posneg==-1) {negpulsecount += realpulse; negpulsesum += m1;}
 	noisypulse = m1*m1;
 	mult = m1 * m2 ;
 	noise = ( m1- m2) *   ( m1- m2) ;
