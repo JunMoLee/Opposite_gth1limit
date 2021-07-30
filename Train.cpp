@@ -105,7 +105,10 @@ double Momentum(double gradient, double learning_rate, double momentumPrev, doub
 double Adagrad(double gradient, double learning_rate, double gradSquare, double EPSILON=1E-1);
 double RMSprop(double gradient, double learning_rate, double gradSquarePrev,double GAMA=0.5, double EPSILON=2E-1);
 double Adam(double gradient, double learning_rate, double momentumPreV, double velocityPrev, double BETA1=0.1, double BETA2=0.7, double EPSILON=2E-1);
-
+	double pospulsecounttotal = 0;
+	double negpulsecounttotal =0;
+		double pospulsesumtotal = 0;
+	double negpulsesumotal =0;
 
 void Train(int iter, const int numTrain, const int epochs, char *optimization_type) {
 int numBatchReadSynapse;	    // # of read synapses in a batch read operation (decide later)
@@ -121,10 +124,7 @@ double a2[param->nOutput];  // Net output of output layer [param->nOutput]
 double s1[param->nHide];    // Output delta from input layer to the hidden layer [param->nHide]
 double s2[param->nOutput];  // Output delta from hidden layer to the output layer [param->nOutput]
 	
-	double pospulsecounttotal = 0;
-	double negpulsecounttotal =0;
-		double pospulsesumtotal = 0;
-	double negpulsesumotal =0;
+
 
 		double NL_LTP_Gp = static_cast<RealDevice*>(arrayIH->cell[0][0])->NL_LTP_Gp;
 	        double NL_LTD_Gp = static_cast<RealDevice*>(arrayIH->cell[0][0])->NL_LTD_Gp;
