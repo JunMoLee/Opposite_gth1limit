@@ -1287,8 +1287,8 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				char str[1024];
 				sprintf(str, "noise_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.csv" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
 			 	read.open(str,fstream::app);
-			 	read <<epoch<<", "<<recordidx<<", "<<param ->RecordPeriod<<", "<<m1<<", "<<m2 <<", "<<m3<<", "<<m4<<endl;
-			 
+			 	read <<epoch<<", "<<recordidx<<", "<<param ->RecordPeriod<<", "<<m1<<", "<<m2 <<", "<<m3<<", "<<,flippedupdateIH/param ->RecordPeriodm4<<", "<<m4<<", "<<flippedupdateHO/param ->RecordPeriod<<endl;
+			
 				param->IHnoise=0;
 				param->HOnoise=0;
 				param->HOcosine=0;
