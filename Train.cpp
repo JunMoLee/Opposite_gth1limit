@@ -106,9 +106,9 @@ double Adagrad(double gradient, double learning_rate, double gradSquare, double 
 double RMSprop(double gradient, double learning_rate, double gradSquarePrev,double GAMA=0.5, double EPSILON=2E-1);
 double Adam(double gradient, double learning_rate, double momentumPreV, double velocityPrev, double BETA1=0.1, double BETA2=0.7, double EPSILON=2E-1);
 	double pospulsecounttotal = 0;
-	double negpulsecounttotal =0;
-		double pospulsesumtotal = 0;
-	double negpulsesumotal =0;
+	double pospulsesumtotal  =0;
+		double negpulsecounttotal = 0;
+	double negpulsesumtotal  =0;
 
 void Train(int iter, const int numTrain, const int epochs, char *optimization_type) {
 int numBatchReadSynapse;	    // # of read synapses in a batch read operation (decide later)
