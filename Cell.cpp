@@ -685,7 +685,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	double m1 = ( conductanceNewGp - conductanceGpPrev );
 	double m2 = realpulse;
 	if (posneg==1) {pospulsecount += realpulse; pospulsesum += m1;}
-	else if (posneg==-1) {negpulsecount += realpulse; negpulsesum += -m1;}
+	else if (posneg==-1) {negpulsecount += -realpulse; negpulsesum += -m1;}
 		
 	noisypulse = m1*m1;
 	mult = m1 * m2 ;
@@ -697,7 +697,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 		
 	double m1 = -( conductanceNewGn - conductanceGnPrev );
 	double m2 = realpulse;
-	if (posneg==1) {pospulsecount += realpulse; pospulsesum += -m1;}
+	if (posneg==1) {pospulsecount += -realpulse; pospulsesum += -m1;}
 	else if (posneg==-1) {negpulsecount += realpulse; negpulsesum += m1;}
 	noisypulse = m1*m1;
 	mult = m1 * m2 ;
