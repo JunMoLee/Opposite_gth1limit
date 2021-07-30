@@ -1283,7 +1283,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				double m3= pospulsesumtotal / pospulsecounttotal;//(IHcount==0)? 1:param->IHcosine/IHcount;
 				// printf("%.2f, %.2f", pospulsesumtotal, pospulsecounttotal);
 				double m4 =negpulsesumtotal / negpulsecounttotal;//(HOcount==0)? 1: param->HOcosine/HOcount;
-				printf("[Recordidx : %d] IHnoise : %.2f, HOnoise: %.2f, effectivepospulse: %.2f, %.1f, effectivenegpulse: %.2f, %.1f / " , recordidx, m1, m2, m3,flippedupdateIH, m4, flippedupdateHO);
+				printf("[Recordidx : %d] IHnoise : %.2f, HOnoise: %.2f, effectivepospulse: %.2f, %.1f, effectivenegpulse: %.2f, %.1f / " , recordidx, m1, m2, m3,flippedupdateIH/param ->RecordPeriod, m4, flippedupdateHO/param ->RecordPeriod);
 				char str[1024];
 				sprintf(str, "noise_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.csv" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
 			 	read.open(str,fstream::app);
