@@ -96,6 +96,9 @@ extern Subtractor subtractorHO;
 extern double totalWeightUpdate=0; // track the total weight update (absolute value) during the whole training process
 extern double totalNumPulse=0;// track the total number of pulse for the weight update process; for Analog device only
 
+double flippedupdateIH=0;
+double flippedupdateHO=0;
+
 /*Optimization functions*/
 double gradt;
 double GAMA=0.9;
@@ -1155,13 +1158,19 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					double k3 =static_cast<RealDevice*>(arrayIH->cell[j][k])->negpulsecount;
 					double k4 =static_cast<RealDevice*>(arrayIH->cell[j][k])->negpulsesum;
 					if(k1 && k3)
-					{ if (k1>k3)
+					{ if (k1>k3){
 					pospulsesumtotal += k2/k1-k4/k3;
+	
+					 if((k2/k1-k4/k3)<0) flippedupdateIH++;
+						
+					}
 					
-					 else if (k3>k1)
+					 else if (k3>k1){
 						// negpulsesumtotal += (k4-k2) / (k4 - k1 * (k4/k3));
 						
 					pospulsesumtotal +=k4/k3-k2/k1;
+						 if((k2/k1-k4/k3)>0) flippedupdateIH++;
+					 }
 					pospulsecounttotal += 1;
 					}
 				}
@@ -1209,13 +1218,17 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					double k3 =static_cast<RealDevice*>(arrayHO->cell[j][k])->negpulsecount;
 					double k4 =static_cast<RealDevice*>(arrayHO->cell[j][k])->negpulsesum;
 					if(k1 && k3)
-					{ if (k1>k3)
+					{ if (k1>k3){
 					negpulsesumtotal += k2/k1-k4/k3;
+					 if((k2/k1-k4/k3)<0) flippedupdateHO++;
+					}
 					
-					 else if (k3>k1)
+					 else if (k3>k1){
 						// negpulsesumtotal += (k4-k2) / (k4 - k1 * (k4/k3));
 						
 					negpulsesumtotal +=k4/k3-k2/k1;
+						if((k2/k1-k4/k3)>0) flippedupdateHO++;
+					 }
 					negpulsecounttotal += 1;
 					}
 					
@@ -1270,7 +1283,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				double m3= pospulsesumtotal / pospulsecounttotal;//(IHcount==0)? 1:param->IHcosine/IHcount;
 				// printf("%.2f, %.2f", pospulsesumtotal, pospulsecounttotal);
 				double m4 =negpulsesumtotal / negpulsecounttotal;//(HOcount==0)? 1: param->HOcosine/HOcount;
-				printf("[Recordidx : %d] IHnoise : %.2f, HOnoise: %.2f, effectivepospulse: %.2f, effectivenegpulse: %.2f / " , recordidx, m1, m2, m3, m4 );
+				printf("[Recordidx : %d] IHnoise : %.2f, HOnoise: %.2f, effectivepospulse: %.2f, %.1f, effectivenegpulse: %.2f, %.1f / " , recordidx, m1, m2, m3,flippedupdateIH, m4, flippedupdateHO);
 				char str[1024];
 				sprintf(str, "noise_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.csv" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
 			 	read.open(str,fstream::app);
@@ -1286,6 +1299,8 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					pospulsesumtotal  =0;
 					negpulsecounttotal =0;
 					negpulsesumtotal =0;
+				flippedupdateIH=0;
+					flippedupdateHO=0;
 		
 				
 				
