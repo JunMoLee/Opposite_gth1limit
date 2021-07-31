@@ -77,6 +77,8 @@ public:
 	double HOcosine=0;
 	double IHnoupdate = 0;
 	double HOnoupdate = 0;
+	int LocationTrack=1;
+	int LocationTrackPeriod=200;
 
 	/* Hardware parameters */
 	bool useHardwareInTrainingFF;   // Use hardware in the feed forward part of training or not (true: realistic hardware, false: ideal software)
