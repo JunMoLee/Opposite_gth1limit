@@ -1146,15 +1146,15 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				for (int j = 0; j < param->nHide; j++) {
 					for (int k = 0; k < param->nInput; k++) {
 						 if(static_cast<RealDevice*>(arrayIH->cell[j][k])->location == 0)
-							 location0weight +=weight1[j][k];
-						location0count++;
-						 if(static_cast<RealDevice*>(arrayIH->cell[j][k])->location == 1)
-							 location1weight +=weight1[j][k];
-						location1count++;
-						if(static_cast<RealDevice*>(arrayIH->cell[j][k])->location == 2)
-							 location2weight +=weight1[j][k];
-						location2count++;
-						if(static_cast<RealDevice*>(arrayIH->cell[j][k])->location == 3)
+						 {location0weight +=weight1[j][k];
+						location0count++;}
+						 else if(static_cast<RealDevice*>(arrayIH->cell[j][k])->location == 1)
+							 {location1weight +=weight1[j][k];
+						location1count++;}
+						else if(static_cast<RealDevice*>(arrayIH->cell[j][k])->location == 2)
+						{location2weight +=weight1[j][k];
+						location2count++;}
+						else
 							 location3weight +=weight1[j][k];
 						location3count++;
 					}
@@ -1164,17 +1164,19 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				for (int j = 0; j < param->nOutput; j++) {
 					for (int k = 0; k < param->nHide; k++) {
 						if(static_cast<RealDevice*>(arrayHO->cell[j][k])->location == 0)
-							 location0weight +=weight2[j][k];
-						location0count++;
-						 if(static_cast<RealDevice*>(arrayHO->cell[j][k])->location == 1)
-							 location1weight +=weight2[j][k];
-						location1count++;
-						if(static_cast<RealDevice*>(arrayHO->cell[j][k])->location == 2)
-							 location2weight +=weight2[j][k];
-						location2count++;
-						if(static_cast<RealDevice*>(arrayHO->cell[j][k])->location == 3)
+						{location0weight +=weight2[j][k];
+						location0count++;}
+						 else if(static_cast<RealDevice*>(arrayHO->cell[j][k])->location == 1)
+						 {location1weight +=weight2[j][k];
+						location1count++;}
+						else if(static_cast<RealDevice*>(arrayHO->cell[j][k])->location == 2)
+						{location2weight +=weight2[j][k];
+						location2count++;}
+						else
+						{
 							 location3weight +=weight2[j][k];
 						location3count++;
+						}
 						
 					}
 				}
