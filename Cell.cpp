@@ -446,6 +446,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	double pcondrange = pmaxConductance - pminConductance;
 	double ncondrange = nmaxConductance - nminConductance;
 	double posneg=0;
+	double Gth1_zero=0;
 
 	
 	int epoch = int( iteration/8000);
@@ -675,7 +676,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	conductanceGp = conductanceNewGp;
 	conductanceGn = conductanceNewGn;
 	
-	
+	if(param->Gth1 == 0) {param->Gth1 = 1; Gth1_zero=1;}
 	if ( (conductanceGpPrev - param->Gth1) * (conductanceNewGp- param->Gth1) < 0 || (conductanceGnPrev - param->Gth1) * (conductanceNewGn - param->Gth1) < 0 )
 	{
 		
@@ -694,6 +695,8 @@ else if ((conductanceNewGp - param->Gth1)>0 && (conductanceNewGn - param->Gth1)<
 	location=2;
 	else
 	location=3;
+	
+	if(Gth1_zero== 1) {param->Gth1 =0;}
 	
 	if( (conductanceGpPrev - conductanceNewGp)*(conductanceGpPrev - conductanceNewGp) > (conductanceGnPrev - conductanceNewGn) * (conductanceGnPrev - conductanceNewGn))
 	{
