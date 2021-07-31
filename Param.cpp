@@ -68,10 +68,12 @@ Param::Param() {
 	Reference = 0;
 	RefPeriod = 100;
 	Record = 1;
-	RecordPeriod = 209;
+	RecordPeriod = 200;
 	WeightTrack = 1;
-	WeightTrackPeriod=100;
+	WeightTrackPeriod=200;
 	c2cvariation=0;
+	LocationTrack=1;
+	LocationTrackPeriod=200;
 	
 	Gth1 = -1;
 	Gth2 = 9;
