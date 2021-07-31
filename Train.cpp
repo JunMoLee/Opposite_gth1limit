@@ -1130,7 +1130,58 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 			}
 				
 			}
-
+			
+			if(param -> LocationTrack){
+				double location0count=0;
+				double location1count=0;
+				double location2count=0;
+				double location3count=0;
+				double location0weight=0;
+				double location1weight=0;
+				double location2weight=0;
+				double location3weight=0;
+				for (int j = 0; j < param->nHide; j++) {
+					for (int k = 0; k < param->nInput; k++) {
+						 if(static_cast<RealDevice*>(arrayIH->cell[j][k])->location == 0)
+							 location0weight +=weight1[j][k];
+						location0count++:
+						 if(static_cast<RealDevice*>(arrayIH->cell[j][k])->location == 1)
+							 location1weight +=weight1[j][k];
+						location1count++:
+						if(static_cast<RealDevice*>(arrayIH->cell[j][k])->location == 2)
+							 location2weight +=weight1[j][k];
+						location2count++:
+						if(static_cast<RealDevice*>(arrayIH->cell[j][k])->location == 3)
+							 location3weight +=weight1[j][k];
+						location3count++:
+					}
+				}
+						
+						
+				for (int j = 0; j < param->nOutput; j++) {
+					for (int k = 0; k < param->nHide; k++) {
+						if(static_cast<RealDevice*>(arrayHO->cell[j][k])->location == 0)
+							 location0weight +=weight2[j][k];
+						location0count++:
+						 if(static_cast<RealDevice*>(arrayHO->cell[j][k])->location == 1)
+							 location1weight +=weight2[j][k];
+						location1count++:
+						if(static_cast<RealDevice*>(arrayHO->cell[j][k])->location == 2)
+							 location2weight +=weight2[j][k];
+						location2count++:
+						if(static_cast<RealDevice*>(arrayHO->cell[j][k])->location == 3)
+							 location3weight +=weight2[j][k];
+						location3count++:
+						
+					}
+				}
+				
+			printf("locationcount: %.2f, %.2f, %.2f, %.2f, 	location0count, location1count, location2count, location3count);
+			printf("locationweightmean: %.2f, %.2f, %.2f, %.2f, location0weight, location1weight, location2weight,location3weight);
+				
+			}
+				
+				
 			if(param -> Record){
 			double IHupdatecount =0;
 			double HOupdatecount =0;
