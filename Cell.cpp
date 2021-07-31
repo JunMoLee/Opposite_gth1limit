@@ -676,7 +676,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	conductanceGn = conductanceNewGn;
 	
 	
-	if ( (conductanceGpPrev - conductanceGnPrev) * (conductanceNewGp- conductanceNewGn) < 0 && (conductanceNewGp - param->Gth1) * (conductanceNewGn - param->Gth1) <=0 )
+	if ( (conductanceGpPrev - param->Gth1) * (conductanceNewGp- param->Gth1) < 0 || (conductanceGnPrev - param->Gth1) * (conductanceNewGn - param->Gth1) < 0 )
 	{
 		
 		Gth1cross++;
