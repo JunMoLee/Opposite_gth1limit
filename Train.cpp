@@ -1177,7 +1177,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				}
 				
 			printf("locationcount: %.2f, %.2f, %.2f, %.2f, 	location0count, location1count, location2count, location3count);
-			printf("locationweightmean: %.2f, %.2f, %.2f, %.2f, location0weight, location1weight, location2weight,location3weight);
+			printf("locationweightmean: %.2f, %.2f, %.2f, %.2f, location0weight/location0count, location1weight/location1count, location2weight/location2count,location3weight/location3count);
 				
 			}
 				
