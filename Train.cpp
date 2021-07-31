@@ -1130,11 +1130,12 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 			}
 				
 			}
-			
+			/* location track */
 			if(param -> LocationTrack){
 				
 				if (  iteration % param ->LocationTrackPeriod == param ->LocationTrackPeriod -1) {
-					
+				int epoch = int(iteration/8000)+1;	
+				int recordidx = iteration/param ->LocationTrackPeriod;
 				double location0count=0;
 				double location1count=0;
 				double location2count=0;
@@ -1181,13 +1182,17 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 						
 					}
 				}
-				
+			fstream read;
+			char str[1024];
+			sprintf(str, "location_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.csv" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
+			read.open(str,fstream::app);
+			read <<epoch<<", "<<recordidx<<", "<<location0count<<", "<<location1count<<", "<<location2count<<", "<<location3count <<", "<< location0weight/location0count<<", "<<location1weight/location1count<<", " <<location2weight/location2count<<", "<<location3weight/location3count<< endl;	
 			printf("locationcount: %.2f, %.2f, %.2f, %.2f", 	location0count, location1count, location2count, location3count);
 			printf("locationweightmean: %.2f, %.2f, %.2f, %.2f", location0weight/location0count, location1weight/location1count, location2weight/location2count,location3weight/location3count);
 				}	
 			}
 				
-				
+			/* noise record */	
 			if(param -> Record){
 			double IHupdatecount =0;
 			double HOupdatecount =0;
