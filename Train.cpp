@@ -1132,6 +1132,9 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 			}
 			
 			if(param -> LocationTrack){
+				
+				if (  iteration % param ->LocationTrackPeriod == param ->LocationTrackPeriod -1) {
+					
 				double location0count=0;
 				double location1count=0;
 				double location2count=0;
@@ -1178,7 +1181,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				
 			printf("locationcount: %.2f, %.2f, %.2f, %.2f", 	location0count, location1count, location2count, location3count);
 			printf("locationweightmean: %.2f, %.2f, %.2f, %.2f", location0weight/location0count, location1weight/location1count, location2weight/location2count,location3weight/location3count);
-				
+				}	
 			}
 				
 				
