@@ -1154,9 +1154,10 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 						else if(static_cast<RealDevice*>(arrayIH->cell[j][k])->location == 2)
 						{location2weight +=weight1[j][k];
 						location2count++;}
-						else
+						else if(static_cast<RealDevice*>(arrayIH->cell[j][k])->location == 3){
 							 location3weight +=weight1[j][k];
 						location3count++;
+						}
 					}
 				}
 						
@@ -1172,9 +1173,9 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 						else if(static_cast<RealDevice*>(arrayHO->cell[j][k])->location == 2)
 						{location2weight +=weight2[j][k];
 						location2count++;}
-						else
+						else if(static_cast<RealDevice*>(arrayIH->cell[j][k])->location == 3)
 						{
-							 location3weight +=weight2[j][k];
+						location3weight +=weight2[j][k];
 						location3count++;
 						}
 						
