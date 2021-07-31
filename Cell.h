@@ -220,6 +220,7 @@ public:
 	double negpulsecount=0;
 	double pospulsesum=0;
 	double negpulsesum=0;
+	double location=0;
 
 	
 	RealDevice(int x, int y, double p, double  n);
