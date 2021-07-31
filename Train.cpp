@@ -1144,16 +1144,16 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					for (int k = 0; k < param->nInput; k++) {
 						 if(static_cast<RealDevice*>(arrayIH->cell[j][k])->location == 0)
 							 location0weight +=weight1[j][k];
-						location0count++:
+						location0count++;
 						 if(static_cast<RealDevice*>(arrayIH->cell[j][k])->location == 1)
 							 location1weight +=weight1[j][k];
-						location1count++:
+						location1count++;
 						if(static_cast<RealDevice*>(arrayIH->cell[j][k])->location == 2)
 							 location2weight +=weight1[j][k];
-						location2count++:
+						location2count++;
 						if(static_cast<RealDevice*>(arrayIH->cell[j][k])->location == 3)
 							 location3weight +=weight1[j][k];
-						location3count++:
+						location3count++;
 					}
 				}
 						
@@ -1162,22 +1162,22 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					for (int k = 0; k < param->nHide; k++) {
 						if(static_cast<RealDevice*>(arrayHO->cell[j][k])->location == 0)
 							 location0weight +=weight2[j][k];
-						location0count++:
+						location0count++;
 						 if(static_cast<RealDevice*>(arrayHO->cell[j][k])->location == 1)
 							 location1weight +=weight2[j][k];
-						location1count++:
+						location1count++;
 						if(static_cast<RealDevice*>(arrayHO->cell[j][k])->location == 2)
 							 location2weight +=weight2[j][k];
-						location2count++:
+						location2count++;
 						if(static_cast<RealDevice*>(arrayHO->cell[j][k])->location == 3)
 							 location3weight +=weight2[j][k];
-						location3count++:
+						location3count++;
 						
 					}
 				}
 				
-			printf("locationcount: %.2f, %.2f, %.2f, %.2f, 	location0count, location1count, location2count, location3count);
-			printf("locationweightmean: %.2f, %.2f, %.2f, %.2f, location0weight/location0count, location1weight/location1count, location2weight/location2count,location3weight/location3count);
+			printf("locationcount: %.2f, %.2f, %.2f, %.2f", 	location0count, location1count, location2count, location3count);
+			printf("locationweightmean: %.2f, %.2f, %.2f, %.2f", location0weight/location0count, location1weight/location1count, location2weight/location2count,location3weight/location3count);
 				
 			}
 				
