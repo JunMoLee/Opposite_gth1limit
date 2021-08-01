@@ -711,18 +711,18 @@ else if ((conductanceNewGp - param->Gth1)>0 && (conductanceNewGn - param->Gth1)<
 		
 	switch(location)
 	{case 0: 
-	 {loc0noise += noise;}
+	 {loc0noise = noise;}
 	 
 	 break;
 	 
 	 case 1:
-	  {loc1noise += noise;}
+	  {loc1noise = noise;}
 	 break;
 	 case 2:
-	  {loc2noise += noise;}
+	  {loc2noise = noise;}
 	 break;
 	 case 3:
-	  {loc3noise += noise;}
+	  {loc3noise = noise;}
 	 break;
 	 
 	}
@@ -741,18 +741,18 @@ else if ((conductanceNewGp - param->Gth1)>0 && (conductanceNewGn - param->Gth1)<
 	
 	switch(location)
 	{case 0: 
-	 {loc0noise += noise;}
+	 {loc0noise = noise;}
 	 
 	 break;
 	 
 	 case 1:
-	  {loc1noise += noise;}
+	  {loc1noise = noise;}
 	 break;
 	 case 2:
-	  {loc2noise += noise;}
+	  {loc2noise = noise;}
 	 break;
 	 case 3:
-	  {loc3noise += noise;}
+	  {loc3noise = noise;}
 	 break;
 	 
 	}
