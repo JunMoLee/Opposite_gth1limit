@@ -708,6 +708,24 @@ else if ((conductanceNewGp - param->Gth1)>0 && (conductanceNewGn - param->Gth1)<
 	noisypulse = m1*m1;
 	mult = m1 * m2 ;
 	noise = ( m1- m2) *   ( m1- m2) ;
+		
+	switch(location)
+	{case 0: 
+	 {loc0noise += noise;}
+	 
+	 break;
+	 
+	 case 1:
+	  {loc1noise += noise;}
+	 break;
+	 case 2:
+	  {loc2noise += noise;}
+	 break;
+	 case 3:
+	  {loc3noise += noise;}
+	 break;
+	 
+	}
 	}
 	
 	else
@@ -720,6 +738,24 @@ else if ((conductanceNewGp - param->Gth1)>0 && (conductanceNewGn - param->Gth1)<
 	noisypulse = m1*m1;
 	mult = m1 * m2 ;
 	noise = ( m1- m2) *   ( m1- m2) ;
+	
+	switch(location)
+	{case 0: 
+	 {loc0noise += noise;}
+	 
+	 break;
+	 
+	 case 1:
+	  {loc1noise += noise;}
+	 break;
+	 case 2:
+	  {loc2noise += noise;}
+	 break;
+	 case 3:
+	  {loc3noise += noise;}
+	 break;
+	 
+	}
 		
 	}
 	if (mult<0)
