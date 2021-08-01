@@ -220,7 +220,7 @@ public:
 	double negpulsecount=0;
 	double pospulsesum=0;
 	double negpulsesum=0;
-	double location=0;
+	int location=0;
 	double loc0noise = 0;
 	double loc1noise = 0;
 	double loc2noise = 0;
