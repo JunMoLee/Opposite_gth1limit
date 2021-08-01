@@ -221,6 +221,10 @@ public:
 	double pospulsesum=0;
 	double negpulsesum=0;
 	double location=0;
+	double loc0noise = 0;
+	double loc1noise = 0;
+	double loc2noise = 0;
+	double loc3noise =0;
 
 	
 	RealDevice(int x, int y, double p, double  n);
