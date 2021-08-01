@@ -1315,6 +1315,10 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					noisypulsesum  = noisypulsesum  + static_cast<RealDevice*>(arrayHO->cell[j][k])->noisypulse ;
 					multsum = multsum + static_cast<RealDevice*>(arrayHO->cell[j][k])->mult;
 					noisesum = noisesum + static_cast<RealDevice*>(arrayHO->cell[j][k])->noise;
+										loc0noiseunit = loc0noiseunit + static_cast<RealDevice*>(arrayHO->cell[j][k])->loc0noise;
+					loc1noiseunit = loc1noiseunit + static_cast<RealDevice*>(arrayHO->cell[j][k])->loc1noise;
+					loc2noiseunit = loc2noiseunit + static_cast<RealDevice*>(arrayHO->cell[j][k])->loc2noise;
+					loc3noiseunit = loc3noiseunit + static_cast<RealDevice*>(arrayHO->cell[j][k])->loc3noise;
 					/*
 					double k1 = static_cast<RealDevice*>(arrayHO->cell[j][k])->pospulsecount;
 					double k2 = static_cast<RealDevice*>(arrayHO->cell[j][k])->pospulsesum;
