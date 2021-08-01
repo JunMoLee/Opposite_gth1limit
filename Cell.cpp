@@ -447,6 +447,10 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	double ncondrange = nmaxConductance - nminConductance;
 	double posneg=0;
 	double Gth1_zero=0;
+	loc0noise=0;
+	loc1noise=0;
+	loc2noise=0;
+	loc3noise=0;
 
 	
 	int epoch = int( iteration/8000);
