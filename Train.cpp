@@ -1427,7 +1427,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				double m4= loc1noise*10000.0/110/param ->RecordPeriod;
 				double m5= loc2noise*10000.0/110/param ->RecordPeriod;
 				double m6 = loc3noise*10000.0/110/param ->RecordPeriod;
-				if(100 *param ->RecordPeriod - zeroupdateIH<0) {printf("count error");}
+				if(100 *param ->RecordPeriod - zeroupdateIH<0) {printf("debug: %.2f, %.2f / ",param->IHcosine, 100 *param ->RecordPeriod - zeroupdateIH);}
 				double mm1 = relativeratioIH/ (100 *param ->RecordPeriod - zeroupdateIH);
 				double mm2 = relativeratioHO/ (10 *param ->RecordPeriod - zeroupdateHO);
 				double mm3 = param->IHcosine/ (100 *param ->RecordPeriod - zeroupdateIH);
