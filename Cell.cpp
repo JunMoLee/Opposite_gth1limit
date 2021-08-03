@@ -762,8 +762,7 @@ else if ((conductanceGpPrev - param->Gth1)>0 && (conductanceGnPrev - param->Gth1
 	}
 		
 	}
-	if (mult<0)
-	{printf("error");}
+
 	realpulse = realpulse * realpulse;
 	
 	conductanceNew = conductanceNewGp - conductanceNewGn + refConductance;
