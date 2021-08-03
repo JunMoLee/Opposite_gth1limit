@@ -1213,18 +1213,20 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 			double HOnoiseunit = 0;
 			double IHcosineunit = 0;
 			double HOcosineunit  = 0;
-
-				int epoch = int(iteration/8000)+1;		
-			for (int j = 0; j < param->nHide; j++) {
-				
 			double realpulsesum = 0;
 			double noisypulsesum = 0;
 			double multsum = 0;
-			double noisesum =0;
 			double loc0noiseunit =0;
 			double loc1noiseunit =0;
 			double loc2noiseunit =0;
-			double loc3noiseunit =0;
+			double loc3noiseunit =0;			
+				
+				int epoch = int(iteration/8000)+1;		
+			for (int j = 0; j < param->nHide; j++) {
+				
+
+			double noisesum =0;
+
 				
 				
 				for (int k = 0; k < param->nInput; k++) {
@@ -1262,11 +1264,9 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					*/
 				}
 				IHnoiseunit += noisesum;
-				loc0noiseIH += loc0noiseunit;
-				loc1noiseIH += loc1noiseunit;
-				loc2noiseIH += loc2noiseunit;
-				loc3noiseIH += loc3noiseunit;
+
 				
+				/*
 				if (realpulsesum>0){
 					if(realpulsesum * noisesum == 0){
 						IHcosineunit += 0;
@@ -1276,7 +1276,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 						
 								
 				IHcosineunit += sqrt (multsum*multsum /(noisesum * realpulsesum) );
-				
+				*/
 					
 						/*
 				if((noisesum * realpulsesum) > 0) {
@@ -1284,12 +1284,13 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				}
 						else
 						{zeroupdateIH +=1;}
-						*/
+						
 						
 					}
 				relativeratioIH += sqrt(noisesum/ realpulsesum);
 				}
 				else {zeroupdateIH +=1;}
+				*/
 				/*
 				if (realpulsesum>0){
 			
@@ -1317,17 +1318,27 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				else{
 					param -> IHnoupdate++;
 				}*/
+				loc0noiseIH += sqrt(loc0noiseunit);
+				loc1noiseIH += sqrt(loc1noiseunit);
+				loc2noiseIH += sqrt(loc2noiseunit);
+				loc3noiseIH += sqrt(loc3noiseunit);
+				param->IHnoise += sqrt(IHnoiseunit);
+				param->IHcosine += multsum / ( sqrt(IHnoiseunit) * sqrt(realpulsesum) );
+				relativeratioIH = sqrt(IHnoiseunit / realpulsesum);
+					
 				
-				param->IHnoise += IHnoiseunit;
-				param->IHcosine += IHcosineunit;
-				
-		
+		multsum = 0;
+		realpulsesum = 0;
+		loc0noiseunit =0;
+		loc1noiseunit =0;
+		loc2noiseunit =0;
+		loc3noiseunit =0;				
 			for (int j = 0; j < param->nOutput; j++) {
-				double realpulsesum = 0;
+				
 				double noisypulsesum = 0;
-				double multsum = 0;
+				
 				double noisesum =0;
-							double loc0noiseunit =0;
+			double loc0noiseunit =0;
 			double loc1noiseunit =0;
 			double loc2noiseunit =0;
 			double loc3noiseunit =0;
@@ -1371,16 +1382,14 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					
 				}
 				HOnoiseunit += noisesum;
-				loc0noiseHO += loc0noiseunit;
-				loc1noiseHO += loc1noiseunit;
-				loc2noiseHO += loc2noiseunit;
-				loc3noiseHO += loc3noiseunit;
+
+				/*
 				if (realpulsesum>0){
-				if(noisesum * realpulsesum == 0){
+				if(noisesum == 0){
 					HOcosineunit += 0;
 							}
 					else{
-				HOcosineunit += sqrt (multsum*multsum /(noisesum * realpulsesum) );
+				HOcosineunit += multsum;
 						
 						
 					
@@ -1390,6 +1399,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					relativeratioHO += sqrt(noisesum / realpulsesum);
 				}
 				else {zeroupdateHO +=1;}
+				*/
 				/*
 				if (realpulsesum>0){
 			
@@ -1420,8 +1430,13 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				param -> HOnoupdate++;
 				}
 				*/
-				param->HOnoise = param->HOnoise + HOnoiseunit;
-				param->HOcosine = param->HOcosine  +HOcosineunit;
+				loc0noiseHO += sqrt(loc0noiseunit);
+				loc1noiseHO += sqrt(loc1noiseunit);
+				loc2noiseHO += sqrt(loc2noiseunit);
+				loc3noiseHO += sqrt(loc3noiseunit);
+				param->HOnoise +=  sqrt(HOnoiseunit);
+				param->HOcosine = multsum/(sqrt(HOnoiseunit) * sqrt(realpulsesum));
+				relativeratioHO += sqrt(HOnoiseunit / realpulsesum);
 			
 			
 			
@@ -1434,24 +1449,24 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				fstream read;
 				double IHcount = param ->RecordPeriod - param -> IHnoupdate;
 				double HOcount = param ->RecordPeriod - param -> HOnoupdate;
-				double m1= param->IHnoise *10000.0/100/param ->RecordPeriod;
-				double	m2=param->HOnoise *10000.0/10/param ->RecordPeriod;
+				double m1= param->IHnoise*10000.0/param ->RecordPeriod;
+				double	m2=param->HOnoise*10000.0/param ->RecordPeriod;
 				// double m3= pospulsesumtotal / pospulsecounttotal;//(IHcount==0)? 1:param->IHcosine/IHcount;
 				// printf("%.2f, %.2f", pospulsesumtotal, pospulsecounttotal);
 				// double m4 =negpulsesumtotal / negpulsecounttotal;//(HOcount==0)? 1: param->HOcosine/HOcount;
-				double m3 = loc0noiseIH*10000.0/100/param ->RecordPeriod;
-				double m4= loc1noiseIH*10000.0/100/param ->RecordPeriod;
-				double m5= loc2noiseIH*10000.0/100/param ->RecordPeriod;
-				double m6 = loc3noiseIH*10000.0/100/param ->RecordPeriod;
-				double m33 = loc0noiseHO*10000.0/10/param ->RecordPeriod;
-				double m44= loc1noiseHO*10000.0/10/param ->RecordPeriod;
-				double m55= loc2noiseHO*10000.0/10/param ->RecordPeriod;
-				double m66 = loc3noiseHO*10000.0/10/param ->RecordPeriod;
-				printf("debug: %.2f, %.2f / ",param->IHcosine, 100 *param ->RecordPeriod - zeroupdateIH);
-				double mm1 = relativeratioIH/ (100 *param ->RecordPeriod - zeroupdateIH);
-				double mm2 = relativeratioHO/ (10 *param ->RecordPeriod - zeroupdateHO);
-				double mm3 = param->IHcosine/ (100 *param ->RecordPeriod - zeroupdateIH);
-				double mm4 = param->HOcosine/ (10 *param ->RecordPeriod - zeroupdateHO);
+				double m3 = loc0noiseIH*10000.0/param ->RecordPeriod;
+				double m4= loc1noiseIH*10000.0/param ->RecordPeriod;
+				double m5= loc2noiseIH*10000.0/param ->RecordPeriod;
+				double m6 = loc3noiseIH*10000.0/param ->RecordPeriod;
+				double m33 = loc0noiseHO*10000.0/param ->RecordPeriod;
+				double m44= loc1noiseHO*10000.0/param ->RecordPeriod;
+				double m55= loc2noiseHO*10000.0/param ->RecordPeriod;
+				double m66 = loc3noiseHO*10000.0/param ->RecordPeriod;
+				 
+				double mm1 = relativeratioIH/ (param ->RecordPeriod);
+				double mm2 = relativeratioHO/ (param ->RecordPeriod);
+				double mm3 = param->IHcosine/ (param ->RecordPeriod);
+				double mm4 = param->HOcosine/ (param ->RecordPeriod);
 				
 				printf("[Recordidx : %d] IHnoise : %.2f, HOnoise: %.2f, loc0noise: %.2f, %.2f loc1noise: %.2f, %.2f  loc2noise: %.2f, %.2f  loc3noise: %.2f , %.2f  / " , recordidx, m1, m2, m3,m33,m4, m44,m5,m55, m6, m66);
 				char str[1024];
