@@ -1338,10 +1338,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				double noisypulsesum = 0;
 				
 				double noisesum =0;
-			double loc0noiseunit =0;
-			double loc1noiseunit =0;
-			double loc2noiseunit =0;
-			double loc3noiseunit =0;
+			
 				
 				
 				for (int k = 0; k < param->nHide; k++) {
