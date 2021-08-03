@@ -1267,7 +1267,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 						
 					}
 					else{
-				IHcosineunit += sqrt (multsum*multsum /(noiseesum * realpulsesum) );
+				IHcosineunit += sqrt (multsum*multsum /(noisesum * realpulsesum) );
 						
 					}
 				relativeratioIH += noisesum/ realpulsesum;
@@ -1359,7 +1359,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				loc2noise += loc2noiseunit;
 				loc3noise += loc3noiseunit;
 				if (realpulsesum>0){
-				if(noisesu == 0){
+				if(noisesum == 0){
 					HOcosineunit += 0;
 							}
 					else{
@@ -1440,7 +1440,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				
 				printf("[Recordidx : %d] relativeratioIH : %.2f, relativeratioHO: %.2f, IHcosine: %.2f, HOcosine: %.2f / " , recordidx, mm1, mm2, mm3,mm4);
 				char str2[1024];
-				sprintf(str2 "cosine_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.csv" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
+				sprintf(str2, "cosine_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.csv" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
 			 	read.open(str2, fstream::app);
 			 	read <<epoch<<", "<<recordidx<<", "<<param ->RecordPeriod<<", "<<mm1<<", "<<mm2 <<", "<<mm3<<", "<<mm4<<endl;
 				
