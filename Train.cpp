@@ -1323,8 +1323,13 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				loc2noiseIH += sqrt(loc2noiseunit);
 				loc3noiseIH += sqrt(loc3noiseunit);
 				param->IHnoise += sqrt(IHnoiseunit);
+				
+				if(realpulsesum == 0)
+				{param -> IHnoupdate++;}
+				else{
 				param->IHcosine += multsum / ( sqrt(IHnoiseunit) * sqrt(realpulsesum) );
 				relativeratioIH = sqrt(IHnoiseunit / realpulsesum);
+				}
 					
 				
 		multsum = 0;
@@ -1432,8 +1437,12 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				loc2noiseHO += sqrt(loc2noiseunit);
 				loc3noiseHO += sqrt(loc3noiseunit);
 				param->HOnoise +=  sqrt(HOnoiseunit);
+				if(realpulsesum == 0)
+				{param -> HOnoupdate++;}
+				else{
 				param->HOcosine = multsum/(sqrt(HOnoiseunit) * sqrt(realpulsesum));
 				relativeratioHO += sqrt(HOnoiseunit / realpulsesum);
+				}
 			
 			
 			
@@ -1443,28 +1452,29 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 			{	
 
 				int recordidx = iteration / param ->RecordPeriod;
-				fstream read;
+				
+				/*
 				double IHcount = param ->RecordPeriod - param -> IHnoupdate;
-				double HOcount = param ->RecordPeriod - param -> HOnoupdate;
-				double m1= param->IHnoise*10000.0/param ->RecordPeriod;
-				double	m2=param->HOnoise*10000.0/param ->RecordPeriod;
+				double HOcount = param ->RecordPeriod - param -> HOnoupdate; */
+				double m1= param->IHnoise*10000.0/(param ->RecordPeriod - param->IHnoupdate);
+				double	m2=param->HOnoise*10000.0/(param ->RecordPeriod - param->HOnoupdate);
 				// double m3= pospulsesumtotal / pospulsecounttotal;//(IHcount==0)? 1:param->IHcosine/IHcount;
 				// printf("%.2f, %.2f", pospulsesumtotal, pospulsecounttotal);
 				// double m4 =negpulsesumtotal / negpulsecounttotal;//(HOcount==0)? 1: param->HOcosine/HOcount;
-				double m3 = loc0noiseIH*10000.0/param ->RecordPeriod;
-				double m4= loc1noiseIH*10000.0/param ->RecordPeriod;
-				double m5= loc2noiseIH*10000.0/param ->RecordPeriod;
-				double m6 = loc3noiseIH*10000.0/param ->RecordPeriod;
-				double m33 = loc0noiseHO*10000.0/param ->RecordPeriod;
-				double m44= loc1noiseHO*10000.0/param ->RecordPeriod;
-				double m55= loc2noiseHO*10000.0/param ->RecordPeriod;
-				double m66 = loc3noiseHO*10000.0/param ->RecordPeriod;
+				double m3 = loc0noiseIH*10000.0/(param ->RecordPeriod - param->IHnoupdate);
+				double m4= loc1noiseIH*10000.0/(param ->RecordPeriod - param->IHnoupdate);
+				double m5= loc2noiseIH*10000.0/(param ->RecordPeriod - param->IHnoupdate);
+				double m6 = loc3noiseIH*10000.0/(param ->RecordPeriod - param->IHnoupdate);
+				double m33 = loc0noiseHO*10000.0/(param ->RecordPeriod - param->HOnoupdate);
+				double m44= loc1noiseHO*10000.0/(param ->RecordPeriod - param->HOnoupdate);
+				double m55= loc2noiseHO*10000.0/(param ->RecordPeriod - param->HOnoupdate);
+				double m66 = loc3noiseHO*10000.0/(param ->RecordPeriod - param->HOnoupdate);
 				 
-				double mm1 = relativeratioIH/ (param ->RecordPeriod);
-				double mm2 = relativeratioHO/ (param ->RecordPeriod);
-				double mm3 = param->IHcosine/ (param ->RecordPeriod);
-				double mm4 = param->HOcosine/ (param ->RecordPeriod);
-				
+				double mm1 = relativeratioIH/ (param ->RecordPeriod - param->IHnoupdate);
+				double mm2 = relativeratioHO/ (param ->RecordPeriod - param->HOnoupdate);
+				double mm3 = param->IHcosine/ (param ->RecordPeriod - param->IHnoupdate);
+				double mm4 = param->HOcosine/(param ->RecordPeriod - param->HOnoupdate);
+				fstream read;
 				printf("[Recordidx : %d] IHnoise : %.2f, HOnoise: %.2f, loc0noise: %.2f, %.2f loc1noise: %.2f, %.2f  loc2noise: %.2f, %.2f  loc3noise: %.2f , %.2f  / " , recordidx, m1, m2, m3,m33,m4, m44,m5,m55, m6, m66);
 				char str[1024];
 				sprintf(str, "noise_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.csv" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
