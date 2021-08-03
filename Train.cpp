@@ -1267,12 +1267,18 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 						
 					}
 					else{
+						
+								
+				IHcosineunit += sqrt (multsum*multsum /(noisesum * realpulsesum* 100000000) ) * 10000;
+				
+					
+						/*
 				if((noisesum * realpulsesum) > 0) {
 				IHcosineunit += sqrt (multsum*multsum /(noisesum * realpulsesum) );
 				}
 						else
 						{zeroupdateIH +=1;}
-						
+						*/
 						
 					}
 				relativeratioIH += noisesum/ realpulsesum;
