@@ -116,7 +116,10 @@ double loc0noise =0;
 double loc1noise =0;
 double loc2noise =0;
 double loc3noise =0;
-
+double relativeratioIH = 0;
+double relativeratioHO = 0;
+double zeroupdateIH =0;
+double zeroupdateHO =0;
 void Train(int iter, const int numTrain, const int epochs, char *optimization_type) {
 int numBatchReadSynapse;	    // # of read synapses in a batch read operation (decide later)
 int numBatchWriteSynapse;	// # of write synapses in a batch write operation (decide later)
@@ -1259,14 +1262,17 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				loc3noise += loc3noiseunit;
 				
 				if (realpulsesum>0){
-					if(noisypulsesum == 0){
+					if(noisesum == 0){
 						IHcosineunit += 0;
-					}
-					else{
-				IHcosineunit += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
 						
 					}
+					else{
+				IHcosineunit += sqrt (multsum*multsum /(noiseesum * realpulsesum) );
+						
+					}
+				relativeratioIH += noisesum/ realpulsesum;
 				}
+				else {zeroupdateIH +=1;}
 				/*
 				if (realpulsesum>0){
 			
@@ -1315,7 +1321,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					noisypulsesum  = noisypulsesum  + static_cast<RealDevice*>(arrayHO->cell[j][k])->noisypulse ;
 					multsum = multsum + static_cast<RealDevice*>(arrayHO->cell[j][k])->mult;
 					noisesum = noisesum + static_cast<RealDevice*>(arrayHO->cell[j][k])->noise;
-										loc0noiseunit = loc0noiseunit + static_cast<RealDevice*>(arrayHO->cell[j][k])->loc0noise;
+					loc0noiseunit = loc0noiseunit + static_cast<RealDevice*>(arrayHO->cell[j][k])->loc0noise;
 					loc1noiseunit = loc1noiseunit + static_cast<RealDevice*>(arrayHO->cell[j][k])->loc1noise;
 					loc2noiseunit = loc2noiseunit + static_cast<RealDevice*>(arrayHO->cell[j][k])->loc2noise;
 					loc3noiseunit = loc3noiseunit + static_cast<RealDevice*>(arrayHO->cell[j][k])->loc3noise;
@@ -1352,17 +1358,21 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				loc1noise += loc1noiseunit;
 				loc2noise += loc2noiseunit;
 				loc3noise += loc3noiseunit;
-				
-				if(noisypulsesum == 0){
+				if (realpulsesum>0){
+				if(noisesu == 0){
 					HOcosineunit += 0;
 							}
 					else{
-				HOcosineunit += sqrt (multsum*multsum /(noisypulsesum * realpulsesum) );
+				HOcosineunit += sqrt (multsum*multsum /(noisesum * realpulsesum) );
 						
 						
 					
 						
 					}
+					
+					relativeratioHO += noisesum / realpulsesum;
+				}
+				else {zeroupdateHO +=1;}
 				/*
 				if (realpulsesum>0){
 			
@@ -1416,12 +1426,24 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				double m4= loc1noise*10000.0/110/param ->RecordPeriod;
 				double m5= loc2noise*10000.0/110/param ->RecordPeriod;
 				double m6 = loc3noise*10000.0/110/param ->RecordPeriod;
+				
+				double mm1 = relativeratioIH/ (100 *param ->RecordPeriod - zeroupdateIH);
+				double mm2 = relativeratioHO/ (10 *param ->RecordPeriod - zeroupdateHO);
+				double mm3 = param->IHcosine/ (100 *param ->RecordPeriod - zeroupdateIH);
+				double mm4 = param->HOcosine/ (10 *param ->RecordPeriod - zeroupdateHO);
+				
 				printf("[Recordidx : %d] IHnoise : %.2f, HOnoise: %.2f, loc0noise: %.2f, loc1noise: %.2f, loc2noise: %.2f, loc3noise: %.1f / " , recordidx, m1, m2, m3,m4, m5, m6);
 				char str[1024];
 				sprintf(str, "noise_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.csv" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
 			 	read.open(str,fstream::app);
 			 	read <<epoch<<", "<<recordidx<<", "<<param ->RecordPeriod<<", "<<m1<<", "<<m2 <<", "<<m3<<", "<<m4<<", "<<m5<<", "<<m6<<endl;
-			
+				
+				printf("[Recordidx : %d] relativeratioIH : %.2f, relativeratioHO: %.2f, IHcosine: %.2f, HOcosine: %.2f / " , recordidx, mm1, mm2, mm3,mm4);
+				char str2[1024];
+				sprintf(str2 "cosine_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.csv" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
+			 	read.open(str2, fstream::app);
+			 	read <<epoch<<", "<<recordidx<<", "<<param ->RecordPeriod<<", "<<mm1<<", "<<mm2 <<", "<<mm3<<", "<<mm4<<endl;
+				
 				param->IHnoise=0;
 				param->HOnoise=0;
 				param->HOcosine=0;
@@ -1440,6 +1462,10 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				loc1noise=0;
 				loc2noise=0;
 				loc3noise=0;
+				relativeratioIH=0;
+				relativeratioHO=0;
+				zeroupdateIH=0;
+				zeroupdateHO=0;
 		
 				
 				
