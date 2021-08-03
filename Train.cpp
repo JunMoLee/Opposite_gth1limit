@@ -1281,7 +1281,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 						*/
 						
 					}
-				relativeratioIH += noisesum/ realpulsesum;
+				relativeratioIH += sqrt(noisesum/ realpulsesum);
 				}
 				else {zeroupdateIH +=1;}
 				/*
@@ -1381,7 +1381,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 						
 					}
 					
-					relativeratioHO += noisesum / realpulsesum;
+					relativeratioHO += sqrt(noisesum / realpulsesum);
 				}
 				else {zeroupdateHO +=1;}
 				/*
