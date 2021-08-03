@@ -1262,14 +1262,14 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				loc3noise += loc3noiseunit;
 				
 				if (realpulsesum>0){
-					if(noisesum == 0){
+					if(realpulsesum * noisesum == 0){
 						IHcosineunit += 0;
 						
 					}
 					else{
 						
 								
-				IHcosineunit += sqrt (multsum*multsum /(noisesum * realpulsesum* 100000000) ) * 10000;
+				IHcosineunit += sqrt (multsum*multsum /(noisesum * realpulsesum) );
 				
 					
 						/*
@@ -1370,7 +1370,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				loc2noise += loc2noiseunit;
 				loc3noise += loc3noiseunit;
 				if (realpulsesum>0){
-				if(noisesum == 0){
+				if(noisesum * realpulsesum == 0){
 					HOcosineunit += 0;
 							}
 					else{
