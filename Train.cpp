@@ -112,10 +112,16 @@ double Adam(double gradient, double learning_rate, double momentumPreV, double v
 	double pospulsesumtotal  =0;
 		double negpulsecounttotal = 0;
 	double negpulsesumtotal  =0;
-double loc0noise =0;
-double loc1noise =0;
-double loc2noise =0;
-double loc3noise =0;
+double loc0noiseIH =0;
+double loc1noiseIH =0;
+double loc2noiseIH =0;
+double loc3noiseIH =0;
+double loc0noiseHO =0;
+double loc1noiseHO =0;
+double loc2noiseHO =0;
+double loc3noiseHO=0;
+
+
 double relativeratioIH = 0;
 double relativeratioHO = 0;
 double zeroupdateIH =0;
@@ -1256,10 +1262,10 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					*/
 				}
 				IHnoiseunit += noisesum;
-				loc0noise += loc0noiseunit;
-				loc1noise += loc1noiseunit;
-				loc2noise += loc2noiseunit;
-				loc3noise += loc3noiseunit;
+				loc0noiseIH += loc0noiseunit;
+				loc1noiseIH += loc1noiseunit;
+				loc2noiseIH += loc2noiseunit;
+				loc3noiseIH += loc3noiseunit;
 				
 				if (realpulsesum>0){
 					if(realpulsesum * noisesum == 0){
@@ -1365,10 +1371,10 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 					
 				}
 				HOnoiseunit += noisesum;
-				loc0noise += loc0noiseunit;
-				loc1noise += loc1noiseunit;
-				loc2noise += loc2noiseunit;
-				loc3noise += loc3noiseunit;
+				loc0noiseHO += loc0noiseunit;
+				loc1noiseHO += loc1noiseunit;
+				loc2noiseHO += loc2noiseunit;
+				loc3noiseHO += loc3noiseunit;
 				if (realpulsesum>0){
 				if(noisesum * realpulsesum == 0){
 					HOcosineunit += 0;
@@ -1433,21 +1439,25 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				// double m3= pospulsesumtotal / pospulsecounttotal;//(IHcount==0)? 1:param->IHcosine/IHcount;
 				// printf("%.2f, %.2f", pospulsesumtotal, pospulsecounttotal);
 				// double m4 =negpulsesumtotal / negpulsecounttotal;//(HOcount==0)? 1: param->HOcosine/HOcount;
-				double m3 = loc0noise*10000.0/110/param ->RecordPeriod;
-				double m4= loc1noise*10000.0/110/param ->RecordPeriod;
-				double m5= loc2noise*10000.0/110/param ->RecordPeriod;
-				double m6 = loc3noise*10000.0/110/param ->RecordPeriod;
+				double m3 = loc0noiseIH*10000.0/100/param ->RecordPeriod;
+				double m4= loc1noiseIH*10000.0/100/param ->RecordPeriod;
+				double m5= loc2noiseIH*10000.0/100/param ->RecordPeriod;
+				double m6 = loc3noiseIH*10000.0/100/param ->RecordPeriod;
+				double m33 = loc0noiseHO*10000.0/10/param ->RecordPeriod;
+				double m44= loc1noiseHO*10000.0/10/param ->RecordPeriod;
+				double m55= loc2noiseHO*10000.0/10/param ->RecordPeriod;
+				double m66 = loc3noiseHO*10000.0/10/param ->RecordPeriod;
 				printf("debug: %.2f, %.2f / ",param->IHcosine, 100 *param ->RecordPeriod - zeroupdateIH);
 				double mm1 = relativeratioIH/ (100 *param ->RecordPeriod - zeroupdateIH);
 				double mm2 = relativeratioHO/ (10 *param ->RecordPeriod - zeroupdateHO);
 				double mm3 = param->IHcosine/ (100 *param ->RecordPeriod - zeroupdateIH);
 				double mm4 = param->HOcosine/ (10 *param ->RecordPeriod - zeroupdateHO);
 				
-				printf("[Recordidx : %d] IHnoise : %.2f, HOnoise: %.2f, loc0noise: %.2f, loc1noise: %.2f, loc2noise: %.2f, loc3noise: %.1f / " , recordidx, m1, m2, m3,m4, m5, m6);
+				printf("[Recordidx : %d] IHnoise : %.2f, HOnoise: %.2f, loc0noise: %.2f, %.2f loc1noise: %.2f, %.2f  loc2noise: %.2f, %.2f  loc3noise: %.2f , %.2f  / " , recordidx, m1, m2, m3,m33,m4, m44,m5,m55, m6, m66);
 				char str[1024];
 				sprintf(str, "noise_NL_%.2f_%.2f_Gth_%.2f_LR_%.2f_revLR_%.2f_%d_%d.csv" ,NL_LTP_Gp, NL_LTD_Gp, Gth1, LA, revlr, reverseperiod, refperiod);
 			 	read.open(str,fstream::app);
-			 	read <<epoch<<", "<<recordidx<<", "<<param ->RecordPeriod<<", "<<m1<<", "<<m2 <<", "<<m3<<", "<<m4<<", "<<m5<<", "<<m6<<endl;
+			 	read <<epoch<<", "<<recordidx<<", "<<param ->RecordPeriod<<", "<<m1<<", "<<m2 <<", "<<m3<<", "<<m33<<", "<<m4<<", "<<m44<<", "<<m5<<", "<<m55<<", "<<m6<<", "<<m66<<endl;
 				fstream read2;
 				printf("[Recordidx : %d] relativeratioIH : %.2f, relativeratioHO: %.2f, IHcosine: %.2f, HOcosine: %.2f / " , recordidx, mm1, mm2, mm3,mm4);
 				char str2[1024];
@@ -1469,10 +1479,16 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				flippedupdateIH=0;
 					flippedupdateHO=0;
 					*/
-				loc0noise=0;
-				loc1noise=0;
-				loc2noise=0;
-				loc3noise=0;
+				loc0noiseIH=0;
+				loc1noiseIH=0;
+				loc2noiseIH=0;
+				loc3noiseIH=0;
+				
+				loc0noiseHO=0;
+				loc1noiseHO=0;
+				loc2noiseHO=0;
+				loc3noiseHO=0;
+				
 				relativeratioIH=0;
 				relativeratioHO=0;
 				zeroupdateIH=0;
