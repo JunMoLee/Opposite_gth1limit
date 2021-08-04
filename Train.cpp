@@ -1452,28 +1452,83 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 			{	
 
 				int recordidx = iteration / param ->RecordPeriod;
-				
-				/*
-				double IHcount = param ->RecordPeriod - param -> IHnoupdate;
-				double HOcount = param ->RecordPeriod - param -> HOnoupdate; */
-				double m1= param->IHnoise*10000.0/(param ->RecordPeriod - param->IHnoupdate);
-				double	m2=param->HOnoise*10000.0/(param ->RecordPeriod - param->HOnoupdate);
+				double m1= 0;
+				double m3 = 0;
+				double m4= 0;
+				double m5= 0;
+				double m6 = 0;				
+				double mm1 =0;				
+				double mm3 = 0;
+				double	m2=0;
 				// double m3= pospulsesumtotal / pospulsecounttotal;//(IHcount==0)? 1:param->IHcosine/IHcount;
 				// printf("%.2f, %.2f", pospulsesumtotal, pospulsecounttotal);
 				// double m4 =negpulsesumtotal / negpulsecounttotal;//(HOcount==0)? 1: param->HOcosine/HOcount;
-				double m3 = loc0noiseIH*10000.0/(param ->RecordPeriod - param->IHnoupdate);
-				double m4= loc1noiseIH*10000.0/(param ->RecordPeriod - param->IHnoupdate);
-				double m5= loc2noiseIH*10000.0/(param ->RecordPeriod - param->IHnoupdate);
-				double m6 = loc3noiseIH*10000.0/(param ->RecordPeriod - param->IHnoupdate);
-				double m33 = loc0noiseHO*10000.0/(param ->RecordPeriod - param->HOnoupdate);
-				double m44= loc1noiseHO*10000.0/(param ->RecordPeriod - param->HOnoupdate);
-				double m55= loc2noiseHO*10000.0/(param ->RecordPeriod - param->HOnoupdate);
-				double m66 = loc3noiseHO*10000.0/(param ->RecordPeriod - param->HOnoupdate);
+
+				double m33 =0;
+				double m44=0;
+				double m55=0;
+				double m66 =0;
 				 
-				double mm1 = relativeratioIH/ (param ->RecordPeriod - param->IHnoupdate);
-				double mm2 = relativeratioHO/ (param ->RecordPeriod - param->HOnoupdate);
-				double mm3 = param->IHcosine/ (param ->RecordPeriod - param->IHnoupdate);
-				double mm4 = param->HOcosine/(param ->RecordPeriod - param->HOnoupdate);
+
+				double mm2 =0;
+
+				double mm4=0;
+				/*
+				double IHcount = param ->RecordPeriod - param -> IHnoupdate;
+				double HOcount = param ->RecordPeriod - param -> HOnoupdate; */
+				if ((param ->RecordPeriod - param->IHnoupdate) !=0){
+				m1= param->IHnoise*10000.0/(param ->RecordPeriod - param->IHnoupdate);
+				m3 = loc0noiseIH*10000.0/(param ->RecordPeriod - param->IHnoupdate);
+				m4= loc1noiseIH*10000.0/(param ->RecordPeriod - param->IHnoupdate);
+				m5= loc2noiseIH*10000.0/(param ->RecordPeriod - param->IHnoupdate);
+				m6 = loc3noiseIH*10000.0/(param ->RecordPeriod - param->IHnoupdate);				
+				mm1 = relativeratioIH/ (param ->RecordPeriod - param->IHnoupdate);				
+				mm3 = param->IHcosine/ (param ->RecordPeriod - param->IHnoupdate);
+				}
+				else
+				{
+				m1 = -1000000;
+				m3 = -1000000;
+				m4= -1000000;
+				m5= -1000000;
+				m6= -1000000;
+				mm1= -1000000;
+				mm3= -1000000;
+				}
+				if ((param ->RecordPeriod - param->HOnoupdate) !=0){
+				m2=param->HOnoise*10000.0/(param ->RecordPeriod - param->HOnoupdate);
+				// double m3= pospulsesumtotal / pospulsecounttotal;//(IHcount==0)? 1:param->IHcosine/IHcount;
+				// printf("%.2f, %.2f", pospulsesumtotal, pospulsecounttotal);
+				// double m4 =negpulsesumtotal / negpulsecounttotal;//(HOcount==0)? 1: param->HOcosine/HOcount;
+
+				m33 = loc0noiseHO*10000.0/(param ->RecordPeriod - param->HOnoupdate);
+				m44= loc1noiseHO*10000.0/(param ->RecordPeriod - param->HOnoupdate);
+				m55= loc2noiseHO*10000.0/(param ->RecordPeriod - param->HOnoupdate);
+				m66 = loc3noiseHO*10000.0/(param ->RecordPeriod - param->HOnoupdate);
+				 
+
+				mm2 = relativeratioHO/ (param ->RecordPeriod - param->HOnoupdate);
+
+				mm4 = param->HOcosine/(param ->RecordPeriod - param->HOnoupdate);
+					
+				}
+				
+				else{
+				m2= -1000000;
+				// double m3= pospulsesumtotal / pospulsecounttotal;//(IHcount==0)? 1:param->IHcosine/IHcount;
+				// printf("%.2f, %.2f", pospulsesumtotal, pospulsecounttotal);
+				// double m4 =negpulsesumtotal / negpulsecounttotal;//(HOcount==0)? 1: param->HOcosine/HOcount;
+
+				m33= -1000000;
+				m44= -1000000;
+				m55= -1000000;
+				m66 = -1000000;
+				 
+
+				mm2 = -1000000;
+
+				mm4 = -1000000;
+				}
 				fstream read;
 				printf("[Recordidx : %d] IHnoise : %.2f, HOnoise: %.2f, loc0noise: %.2f, %.2f loc1noise: %.2f, %.2f  loc2noise: %.2f, %.2f  loc3noise: %.2f , %.2f  / " , recordidx, m1, m2, m3,m33,m4, m44,m5,m55, m6, m66);
 				char str[1024];
