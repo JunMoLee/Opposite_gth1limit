@@ -149,7 +149,64 @@ int idx = 0;
 			
 Gth1 = Gthlist[gths][0];
 Gth2 = Gthlist[gths][1]; 
+
 	
+const double
+select=0;
+	
+double plist [7] ={2, -9, 0.1, 0, 2, 2, 1}
+param_gp=plist[0];
+param_gn=plist[1];
+alpha1=plist[2];
+Reference=plist[3];
+RefPeriod=int(plist[4]);
+newUpdateRate=int(plist[5]);
+Gth  =1+select*0.2;
+	
+alpha2=alpha1/2;	
+ratio = alpha1/0.15;
+
 }
 
 
+
+/*
+const int
+select=0;
+
+switch(select){
+		
+case 0:
+		
+double plist [7] ={2, -9, 0.1, 0, 2, 2, 1}
+param_gp=plist[0];
+param_gn=plist[1];
+alpha1=plist[2];
+Reference=plist[3];
+RefPeriod=int(plist[4]);
+newUpdateRate=int(plist[5]);
+Gth  =plist[6];
+	
+alpha2=alpha1/2;	
+ratio = alpha1/0.15;
+
+break;
+		
+case 1:
+		
+double plist [7] ={2, -9, 0.1, 0, 2, 2, 1.2}
+param_gp=plist[0];
+param_gn=plist[1];
+alpha1=plist[2];
+Reference=plist[3];
+RefPeriod=int(plist[4]);
+newUpdateRate=int(plist[5]);
+Gth  =plist[6];
+	
+alpha2=alpha1/2;	
+ratio = alpha1/0.15;
+
+break;
+		
+}
+*/
