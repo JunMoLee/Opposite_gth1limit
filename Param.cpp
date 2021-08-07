@@ -45,7 +45,7 @@ Param::Param() {
 	numMnistTrainImages = 60000;// # of training images in MNIST
 	numMnistTestImages = 10000;	// # of testing images in MNIST
 	const double
-        l=10;
+        l=30;
 	/* Algorithm parameters */
 	numTrainImagesPerEpoch = 8000;	// # of training images per epoch
 	totalNumEpochs = 125;	// Total number of epochs
@@ -154,14 +154,14 @@ Gth2 = Gthlist[gths][1];
 const double
 select=0;
 	
-double plist [7] ={1, -9, 0.3, 0, 2, 2, 1};
+double plist [7] ={1, -9, 0.2, 0, 2, 2, 1};
 param_gp=plist[0];
 param_gn=plist[1];
 alpha1=plist[2];
 Reference=plist[3];
 RefPeriod=int(select+8);
 newUpdateRate=int(plist[5]);
-Gth1  =-1;
+Gth1  =1+select*0.5;
 	
 alpha2=alpha1/2;	
 ratio = alpha1/0.15;
