@@ -1487,13 +1487,13 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				}
 				else
 				{
-				m1 = -1000000;
-				m3 = -1000000;
-				m4= -1000000;
-				m5= -1000000;
-				m6= -1000000;
-				mm1= -1000000;
-				mm3= -1000000;
+				m1 = 0;
+				m3 = 0;
+				m4= 0;
+				m5= 0;
+				m6= 0;
+				mm1= 0;
+				mm3= 0;
 				}
 				if ((param ->RecordPeriod - param->HOnoupdate) !=0){
 				m2=param->HOnoise*10000.0/(param ->RecordPeriod - param->HOnoupdate);
@@ -1514,20 +1514,20 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				}
 				
 				else{
-				m2= -1000000;
+				m2= 0;
 				// double m3= pospulsesumtotal / pospulsecounttotal;//(IHcount==0)? 1:param->IHcosine/IHcount;
 				// printf("%.2f, %.2f", pospulsesumtotal, pospulsecounttotal);
 				// double m4 =negpulsesumtotal / negpulsecounttotal;//(HOcount==0)? 1: param->HOcosine/HOcount;
 
-				m33= -1000000;
-				m44= -1000000;
-				m55= -1000000;
-				m66 = -1000000;
+				m33= 0;
+				m44= 0;
+				m55=0;
+				m66 =0;
 				 
 
-				mm2 = -1000000;
+				mm2 = 0;
 
-				mm4 = -1000000;
+				mm4 = 0;
 				}
 				fstream read;
 				printf("[Recordidx : %d] IHnoise : %.2f, HOnoise: %.2f, loc0noise: %.2f, %.2f loc1noise: %.2f, %.2f  loc2noise: %.2f, %.2f  loc3noise: %.2f , %.2f  / " , recordidx, m1, m2, m3,m33,m4, m44,m5,m55, m6, m66);
