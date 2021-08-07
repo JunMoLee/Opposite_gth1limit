@@ -154,14 +154,14 @@ Gth2 = Gthlist[gths][1];
 const double
 select=0;
 	
-double plist [7] ={8, -9, 0.1, 0, 2, 2, 1};
+double plist [7] ={1, -9, 0.3, 0, 2, 2, 1};
 param_gp=plist[0];
 param_gn=plist[1];
 alpha1=plist[2];
 Reference=plist[3];
-RefPeriod=int(plist[4]);
+RefPeriod=int(select+8);
 newUpdateRate=int(plist[5]);
-Gth1  =7+select*0.5;
+Gth1  =-1;
 	
 alpha2=alpha1/2;	
 ratio = alpha1/0.15;
