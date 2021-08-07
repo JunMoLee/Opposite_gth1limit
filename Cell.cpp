@@ -268,13 +268,13 @@ RealDevice::RealDevice(int x, int y, double p, double n) {
 	const double 
 	       tp=12.5;
 	
-	minConductance=2;
-	pminConductance = 2;
-	pmaxConductance = 12;		// Maximum cell conductance (S)
+	minConductance=0;
+	pminConductance = 0;
+	pmaxConductance = 10;		// Maximum cell conductance (S)
 	const double
 		tn=12.5;
-	nminConductance = 2; 
-	nmaxConductance = 12;
+	nminConductance =0; 
+	nmaxConductance = 10;
 	maxConductance= nmaxConductance; // in case of unwanted situations
 	refConductance = 0;
 	
@@ -475,7 +475,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 		
 		posneg=1;
 		if(param->ReverseUpdate && (iteration % param->newUpdateRate == param->newUpdateRate-1)){
-		if(refGp < param->Gth1+2)
+		if(refGp < param->Gth1)
 		{
 		GpGnCell = false;
 		deltaWeightNormalized = -totalcondrange/ncondrange*deltaWeightNormalized/(maxWeight-minWeight);
@@ -550,7 +550,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	} else if (deltaWeightNormalized < 0) {	// LTD weight update
 		posneg=-1;
 		if(param->ReverseUpdate && (iteration % param->newUpdateRate == param->newUpdateRate-1)){
-			if(refGn < param->Gth1+2){
+			if(refGn < param->Gth1){
 						GpGnCell = true;
 						deltaWeightNormalized = totalcondrange/pcondrange*deltaWeightNormalized/(maxWeight-minWeight);
 						deltaWeightNormalized = truncate(deltaWeightNormalized, maxNumLevelpLTD);
@@ -682,7 +682,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	conductanceGn = conductanceNewGn;
 	
 	
-	if ( (conductanceGpPrev -(2+ param->Gth1)) * (conductanceNewGp- (2+ param->Gth1)) < 0 || (conductanceGnPrev - (2+ param->Gth1)) * (conductanceNewGn -(2+ param->Gth1)) < 0 )
+	if ( (conductanceGpPrev -( param->Gth1)) * (conductanceNewGp- ( param->Gth1)) < 0 || (conductanceGnPrev - ( param->Gth1)) * (conductanceNewGn -( param->Gth1)) < 0 )
 	{
 		
 		Gth1cross++;
@@ -691,11 +691,11 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	    Gth1cross++;
 	    */
 	
-	if ((conductanceGpPrev - (2+ param->Gth1))<0 && (conductanceGnPrev - (2+ param->Gth1))<0)
+	if ((conductanceGpPrev - (param->Gth1))<0 && (conductanceGnPrev - ( param->Gth1))<0)
 		location=0;
-else if ((conductanceGpPrev- (2+ param->Gth1))<0 && (conductanceGnPrev - (2+ param->Gth1))>0)
+else if ((conductanceGpPrev- ( param->Gth1))<0 && (conductanceGnPrev - ( param->Gth1))>0)
 	location=1;
-else if ((conductanceGpPrev - (2+ param->Gth1))>0 && (conductanceGnPrev - (2+ param->Gth1))<0)
+else if ((conductanceGpPrev - ( param->Gth1))>0 && (conductanceGnPrev - (param->Gth1))<0)
 	
 	location=2;
 	else
