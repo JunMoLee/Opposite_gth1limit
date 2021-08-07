@@ -1601,14 +1601,14 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 						static_cast<RealDevice*>(arrayIH->cell[j][k])->Gth1cross = 0;
 						if(weight1[j][k]<=0)
 						{
-						averageGpIH += static_cast<RealDevice*>(arrayIH->cell[j][k])->conductanceGp;
+						averageGpIH += static_cast<RealDevice*>(arrayIH->cell[j][k])->conductanceGp-2;
 						count1++;
 						
 						}
 						
 						else 
 						{
-						averageGnIH += static_cast<RealDevice*>(arrayIH->cell[j][k])->conductanceGn;
+						averageGnIH += static_cast<RealDevice*>(arrayIH->cell[j][k])->conductanceGn-2;
 							count2++;
 						}
 						
@@ -1622,13 +1622,13 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 						static_cast<RealDevice*>(arrayHO->cell[j][k])->Gth1cross = 0;
 						if(weight1[j][k]<=0)
 						{
-						averageGpHO += static_cast<RealDevice*>(arrayHO->cell[j][k])->conductanceGp;
+						averageGpHO += static_cast<RealDevice*>(arrayHO->cell[j][k])->conductanceGp-2;
 							count3++;
 						}
 						
 						else 
 						{
-						averageGnHO += static_cast<RealDevice*>(arrayHO->cell[j][k])->conductanceGn;
+						averageGnHO += static_cast<RealDevice*>(arrayHO->cell[j][k])->conductanceGn-2;
 							count4++;
 						}
 					}
