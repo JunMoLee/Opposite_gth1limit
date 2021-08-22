@@ -74,7 +74,9 @@ Param::Param() {
 	c2cvariation=0;
 	LocationTrack=0;
 	LocationTrackPeriod=200;
-	
+        const double
+        cratioo=6;
+cratio=cratioo;
 	Gth1 = -1;
 	Gth2 = 9;
 
