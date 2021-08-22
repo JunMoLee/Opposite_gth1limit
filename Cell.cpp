@@ -764,7 +764,7 @@ else if ((conductanceGpPrev - ( param->Gth1))>0 && (conductanceGnPrev - (param->
 		
 	}
 	if (noise >100)
-	{while 1
+	{while (1)
 	 {
 		printf("Gp:%.2f,%.2f Gn:%.2f,%.2f, realpulse:%.2f",conductanceGpPrev,conductanceNewGp, conductanceGnPrev,conductanceNewGn,realpulse);}
 	}
