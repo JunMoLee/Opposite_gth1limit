@@ -163,7 +163,7 @@ alpha1=plist[2];
 Reference=plist[3];
 RefPeriod=100;
 newUpdateRate=int(plist[5]);
-Gth1  =0+select;
+Gth1  =1+(1+select);
 	
 alpha2=alpha1/2;	
 ratio = alpha1/0.15;
