@@ -766,7 +766,7 @@ else if ((conductanceGpPrev - ( param->Gth1))>0 && (conductanceGnPrev - (param->
 	if (noise >400)
 	{while (1)
 	 {
-		printf("Gp:%.5f, %.5f Gn:%.5f, %.5f, realpulse:%.5f ",conductanceGpPrev,conductanceNewGp, conductanceGnPrev,conductanceNewGn,realpulse);}
+		printf("Gp:%.5f, %.5f Gn:%.5f, %.5f, realpulse:%.5f, numpulse:%.5f ",conductanceGpPrev,conductanceNewGp, conductanceGnPrev,conductanceNewGn,realpulse, numPulse);}
 	}
 	realpulse = realpulse * realpulse;
 	
