@@ -141,8 +141,8 @@ int main() {
 		int reverseupdate = param->ReverseUpdate;
 		int fullrefresh = param ->FullRefresh;
 		int refreshperiod = param -> RefreshRate;
-		double Gth1 = param -> Gth1;
-	  	double Gth2 = param -> Gth2;
+		double Gth1 = param -> Gth1-1;
+	  	double Gth2 = param -> Gth2-1;
 		double revlr = LA / param -> ratio ;
 		int refperiod = param->RefPeriod;
 		int Reference = param -> Reference;
