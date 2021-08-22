@@ -79,7 +79,7 @@ public:
 	int HOnoupdate = 0;
 	int LocationTrack=1;
 	int LocationTrackPeriod=200;
-
+double cratio=15;
 	/* Hardware parameters */
 	bool useHardwareInTrainingFF;   // Use hardware in the feed forward part of training or not (true: realistic hardware, false: ideal software)
 	bool useHardwareInTrainingWU;   // Use hardware in the weight update part of training or not (true: realistic hardware, false: ideal software)
