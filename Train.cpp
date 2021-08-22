@@ -1318,17 +1318,17 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				else{
 					param -> IHnoupdate++;
 				}*/
-				loc0noiseIH += sqrt(loc0noiseunit);
-				loc1noiseIH += sqrt(loc1noiseunit);
-				loc2noiseIH += sqrt(loc2noiseunit);
-				loc3noiseIH += sqrt(loc3noiseunit);
-				param->IHnoise += sqrt(IHnoiseunit);
+				loc0noiseIH += sqrtl(loc0noiseunit);
+				loc1noiseIH += sqrtl(loc1noiseunit);
+				loc2noiseIH += sqrtl(loc2noiseunit);
+				loc3noiseIH += sqrtl(loc3noiseunit);
+				param->IHnoise += sqrtl(IHnoiseunit);
 				
 				if(realpulsesum == 0)
 				{param -> IHnoupdate++;}
 				else{
-				param->IHcosine += multsum / ( sqrt(IHnoiseunit) * sqrt(realpulsesum) );
-				relativeratioIH = sqrt(IHnoiseunit / realpulsesum);
+				param->IHcosine += multsum / ( sqrtl(IHnoiseunit) * sqrtl(realpulsesum) );
+				relativeratioIH = sqrtl(IHnoiseunit / realpulsesum);
 				}
 					
 				
@@ -1432,16 +1432,16 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				param -> HOnoupdate++;
 				}
 				*/
-				loc0noiseHO += sqrt(loc0noiseunit);
-				loc1noiseHO += sqrt(loc1noiseunit);
-				loc2noiseHO += sqrt(loc2noiseunit);
-				loc3noiseHO += sqrt(loc3noiseunit);
-				param->HOnoise +=  sqrt(HOnoiseunit);
+				loc0noiseHO += sqrtl(loc0noiseunit);
+				loc1noiseHO += sqrtl(loc1noiseunit);
+				loc2noiseHO += sqrtl(loc2noiseunit);
+				loc3noiseHO += sqrtl(loc3noiseunit);
+				param->HOnoise +=  sqrtl(HOnoiseunit);
 				if(realpulsesum == 0)
 				{param -> HOnoupdate++;}
 				else{
-				param->HOcosine = multsum/(sqrt(HOnoiseunit) * sqrt(realpulsesum));
-				relativeratioHO += sqrt(HOnoiseunit / realpulsesum);
+				param->HOcosine = multsum/(sqrtl(HOnoiseunit) * sqrtl(realpulsesum));
+				relativeratioHO += sqrtl(HOnoiseunit / realpulsesum);
 				}
 			
 			
