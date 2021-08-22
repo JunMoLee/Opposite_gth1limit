@@ -383,7 +383,7 @@ RealDevice::RealDevice(int x, int y, double p, double n) {
 	
 	/* Cycle-to-cycle weight update variation */
 	if(param->c2cvariation){
-	sigmaCtoC = 0.015* (maxConductance - minConductance);	// Sigma of cycle-to-cycle weight update vairation: defined as the percentage of conductance range
+	sigmaCtoC = param->cratio/1000* (maxConductance - minConductance);	// Sigma of cycle-to-cycle weight update vairation: defined as the percentage of conductance range
 	}
 	else{
 	sigmaCtoC = 0;
@@ -615,7 +615,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 	}
 
 	/* Cycle-to-cycle variation */
-	/*
+
 	extern std::mt19937 gen;
 	if (GpGnCell == true) {
 		if (sigmaCtoC && numPulse != 0) {
@@ -627,7 +627,7 @@ void RealDevice::Write(int iteration, double deltaWeightNormalized, double weigh
 			conductanceNewGn += (*gaussian_dist3)(gen) * sqrt(abs(numPulse));	// Absolute variation
 		}
 	}
-	*/
+	
 	
 	if (conductanceNewGp > pmaxConductance) {
 		conductanceNewGp = pmaxConductance;
