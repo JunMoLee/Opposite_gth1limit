@@ -1332,7 +1332,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				
 
 						for (int k = 0; k < param->nInput; k++) {
-						printf("noisypulse: %.5f, realpulse: %.5f, noise: %.5f, conductanceGp: %.5f, conductanceGn: %.5f s1[%d]: %.5f a1[%d]: %.5f conductanceprev: %.5f \n",static_cast<RealDevice*>(arrayIH->cell[j][k])->noisypulse,static_cast<RealDevice*>(arrayIH->cell[j][k])->realpulse, static_cast<RealDevice*>(arrayIH->cell[j][k])->noise,static_cast<RealDevice*>(arrayIH->cell[j][k])->conductanceGp,static_cast<RealDevice*>(arrayIH->cell[j][k])->conductanceGn, j , s1[j] , j , a1[j],static_cast<RealDevice*>(arrayIH->cell[j][k])->conductancePrev );}
+						printf("noisypulse: %.5f, realpulse: %.5f, noise: %.5f, conductanceGp: %.5f, conductanceGn: %.5f, s1[%d]: %.5f, dInput: %.5f, Input[%d]: %.5f conductanceprev: %.5f \n",static_cast<RealDevice*>(arrayIH->cell[j][k])->noisypulse,static_cast<RealDevice*>(arrayIH->cell[j][k])->realpulse, static_cast<RealDevice*>(arrayIH->cell[j][k])->noise,static_cast<RealDevice*>(arrayIH->cell[j][k])->conductanceGp,static_cast<RealDevice*>(arrayIH->cell[j][k])->conductanceGn, j , s1[j] , k ,dInput[i][k], Input[i][k],static_cast<RealDevice*>(arrayIH->cell[j][k])->conductancePrev );}
 					
 					}
 				}
@@ -1459,7 +1459,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				
 
 						for (int k = 0; k < param->nHide; k++) {
-						printf("noisypulse: %.5f, realpulse: %.5f, noise: %.5f, conductanceGp: %.5f, conductanceGn: %.5f, s2[%d]: %.5f, a2[%d]: %.5f, conductancePrev: %.5f \n",static_cast<RealDevice*>(arrayHO->cell[j][k])->noisypulse,static_cast<RealDevice*>(arrayHO->cell[j][k])->realpulse, static_cast<RealDevice*>(arrayHO->cell[j][k])->noise,static_cast<RealDevice*>(arrayHO->cell[j][k])->conductanceGp,static_cast<RealDevice*>(arrayHO->cell[j][k])->conductanceGn,j, s2[j],j,a2[j],static_cast<RealDevice*>(arrayHO->cell[j][k])->conductancePrev );}
+						printf("noisypulse: %.5f, realpulse: %.5f, noise: %.5f, conductanceGp: %.5f, conductanceGn: %.5f, s2[%d]: %.5f, a2[%d]: %.5f, conductancePrev: %.5f \n",static_cast<RealDevice*>(arrayHO->cell[j][k])->noisypulse,static_cast<RealDevice*>(arrayHO->cell[j][k])->realpulse, static_cast<RealDevice*>(arrayHO->cell[j][k])->noise,static_cast<RealDevice*>(arrayHO->cell[j][k])->conductanceGp,static_cast<RealDevice*>(arrayHO->cell[j][k])->conductanceGn,j, s2[j],k,a1[k],static_cast<RealDevice*>(arrayHO->cell[j][k])->conductancePrev );}
 					
 					}
 				}
