@@ -1325,7 +1325,7 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				param->IHnoise += sqrtl(IHnoiseunit);
 				
 				
-				if(loc1noiseIH>1000000000)
+				if(loc0noiseIH>1000000000 ||loc1noiseIH>1000000000 ||loc2noiseIH>1000000000 ||loc3noiseIH>1000000000 || isinf(loc0noiseIH) ||isinf(loc1noiseIH) ||isinf(loc2noiseIH) ||isinf(loc3noiseIH))
 				{	while (1){
 					printf("recordidx: %d /n", int(iteration / param ->RecordPeriod));
 					for (int j = 0; j < param->nHide; j++) {
@@ -1452,7 +1452,19 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				loc3noiseHO += sqrtl(loc3noiseunit);
 				param->HOnoise +=  sqrtl(HOnoiseunit);
 				
-			
+				if(loc0noiseHO>1000000000 ||loc1noiseHO>1000000000 ||loc2noiseHO>1000000000 ||loc3noiseHO>1000000000 || isinf(loc0noiseHO) ||isinf(loc1noiseHO) ||isinf(loc2noiseHO) ||isinf(loc3noiseHO))
+				{	while (1){
+					printf("recordidx: %d /n", int(iteration / param ->RecordPeriod));
+					for (int j = 0; j < param->nOutput; j++) {
+				
+
+						for (int k = 0; k < param->nHide; k++) {
+						printf("noisypulse: %.5f, realpulse: %.5f, noise: %.5f, conductanceGp: %.5f, conductanceGn: %.5f \n",static_cast<RealDevice*>(arrayHO->cell[j][k])->noisypulse,static_cast<RealDevice*>(arrayHO->cell[j][k])->realpulse, static_cast<RealDevice*>(arrayHO->cell[j][k])->noise,static_cast<RealDevice*>(arrayHO->cell[j][k])->conductanceGp,static_cast<RealDevice*>(arrayHO->cell[j][k])->conductanceGn );}
+					
+					}
+				}
+					
+				}			
 				if(realpulsesum == 0)
 				{param -> HOnoupdate++;}
 				else{
