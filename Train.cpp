@@ -157,8 +157,8 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 		int reverseupdate = param->ReverseUpdate;
 		int fullrefresh = param ->FullRefresh;
 		int refreshperiod = param -> RefreshRate;
-		double Gth1 = param -> Gth1-1;
-	  	double Gth2 = param -> Gth2-1;
+		double Gth1 = param -> Gth1;
+	  	double Gth2 = param -> Gth2;
 		double revlr = LA / param -> ratio ;
 		int refperiod = param->RefPeriod;
 		int Reference = param -> Reference;
@@ -1324,6 +1324,20 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				loc3noiseIH += sqrtl(loc3noiseunit);
 				param->IHnoise += sqrtl(IHnoiseunit);
 				
+				
+				if(loc1noiseIH>1000000000)
+				{	while (1){
+					printf("recordidx: %d /n", int(iteration / param ->RecordPeriod));
+					for (int j = 0; j < param->nHide; j++) {
+				
+
+						for (int k = 0; k < param->nInput; k++) {
+						printf("noisypulse: %.5f, realpulse: %.5f, noise: %.5f, conductanceGp: %.5f, conductanceGn: %.5f \n",static_cast<RealDevice*>(arrayIH->cell[j][k])->noisypulse,static_cast<RealDevice*>(arrayIH->cell[j][k])->realpulse, static_cast<RealDevice*>(arrayIH->cell[j][k])->noise,static_cast<RealDevice*>(arrayIH->cell[j][k])->conductanceGp,static_cast<RealDevice*>(arrayIH->cell[j][k])->conductanceGn );}
+					
+					}
+				}
+					
+				}
 				if(realpulsesum == 0)
 				{param -> IHnoupdate++;}
 				else{
@@ -1437,6 +1451,8 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				loc2noiseHO += sqrtl(loc2noiseunit);
 				loc3noiseHO += sqrtl(loc3noiseunit);
 				param->HOnoise +=  sqrtl(HOnoiseunit);
+				
+			
 				if(realpulsesum == 0)
 				{param -> HOnoupdate++;}
 				else{
