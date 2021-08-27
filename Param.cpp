@@ -153,17 +153,18 @@ Gth1 = Gthlist[gths][0];
 Gth2 = Gthlist[gths][1]; 
 
 	
-const double
+const int
 select=0;
 	
-double plist [7] ={2, -9, 0.3, 0, 2, 2, 1};
+double plist [7] ={6, -9, 0.3, 0, 2, 2, 1};
 param_gp=plist[0];
 param_gn=plist[1];
 alpha1=plist[2];
 Reference=plist[3];
 RefPeriod=100;
+double scan [6] = {6.8,7.2,7.4,7.6,7.8,8.2};
 newUpdateRate=int(plist[5]);
-Gth1  =1+(1+select);
+Gth1  =1+(scan[0]);
 	
 alpha2=alpha1/2;	
 ratio = alpha1/0.15;
