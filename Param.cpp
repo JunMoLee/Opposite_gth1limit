@@ -156,13 +156,13 @@ Gth2 = Gthlist[gths][1];
 const int
 select=0;
 	
-double plist [7] ={6, -9, 0.3, 0, 2, 2, 1};
+double plist [7] ={3, -9, 0.3, 0, 2, 2, 1};
 param_gp=plist[0];
 param_gn=plist[1];
 alpha1=plist[2];
 Reference=plist[3];
 RefPeriod=100;
-double scan [6] = {6.8,7.2,7.4,7.6,7.8,8.2};
+double scan [8] = {2.6,2.8,3.0,3.2,3.4,3.6,3.8,4.0};
 newUpdateRate=int(plist[5]);
 Gth1  =1+(scan[0]);
 	
