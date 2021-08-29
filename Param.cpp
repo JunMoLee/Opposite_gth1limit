@@ -164,7 +164,7 @@ Reference=plist[3];
 RefPeriod=100;
 double scan [8] = {2.6,2.8,3.0,3.2,3.4,3.6,3.8,4.0};
 newUpdateRate=int(plist[5]);
-Gth1  =1+(scan[0]);
+Gth1  =1+(scan[select]);
 	
 alpha2=alpha1/2;	
 ratio = alpha1/0.15;
